@@ -8,5 +8,5 @@ class handler(BaseHTTPRequestHandler):
     self.send_response(200)
     self.send_header('Content-type', 'text/plain')
     self.end_headers()
-    self.wfile.write(str(os.environ.get('VKAPPID')))
+    self.wfile.write(os.environ.get('VKAPPID').encode())
     return
