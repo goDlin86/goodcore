@@ -9,7 +9,7 @@ const Home = () => {
   useEffect(() => {
     async function getDate() {
       const res = await fetch('/api/date');
-      const newDate = await res.json();
+      const newDate = await res.text();
       setDate(newDate);
     }
     getDate();
@@ -24,14 +24,14 @@ const Home = () => {
         <h1 className="title">Welcome to Next!</h1>
         <p className="description">
           To get started, edit the <code>pages/index.js</code> or{' '}
-          <code>pages/api/date.js</code> files, then save to reload.
+          <code>api/date.py</code> files, then save to reload.
         </p>
 
         <p className="row date">
           The date is:&nbsp;{' '}
           {date ? (
             <span>
-              <b>{date.date}</b>
+              <b>{date}</b>
             </span>
           ) : (
             <span className="loading"></span>
