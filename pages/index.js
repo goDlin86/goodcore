@@ -9,7 +9,6 @@ const Home = () => {
   useEffect(() => {
     async function getDate() {
       const res = await fetch('/api/date');
-      console.log(res);
       const newDate = await res.text();
       setDate(newDate);
     }

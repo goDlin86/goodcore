@@ -1,5 +1,7 @@
 {
     "env": {
-      "VKAPPID": "@vkappid"
+        "VKAPPID": "@vkappid",
+        "VKTOKEN": "@vktoken",
+        "VKSECRET": "@vksecret"
     }
 }
