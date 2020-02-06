@@ -47,6 +47,7 @@ class handler(BaseHTTPRequestHandler):
 
             posts.append({
               'title': title,
+              'date': date,
               'img': img,
               'country': country,
               'genre': genre,
