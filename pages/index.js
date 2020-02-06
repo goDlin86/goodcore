@@ -32,7 +32,7 @@ const Home = () => {
           The date is:&nbsp;{' '}
           {date ? (
             <span>
-              <b>{date[0].title}</b>
+              <b>{date.posts[0].title}</b>
             </span>
           ) : (
             <span className="loading"></span>
