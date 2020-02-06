@@ -1,6 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 from datetime import datetime
 import vk_api
+import json
 import os
 
 class handler(BaseHTTPRequestHandler):
@@ -20,7 +21,7 @@ class handler(BaseHTTPRequestHandler):
 
     # CORE RADIO group
     groups = ['-23314431']
-    title = '11'
+    posts = []
 
     for group in groups:
       remote_wall = vk.wall.get(count=10, owner_id=group)
@@ -37,9 +38,6 @@ class handler(BaseHTTPRequestHandler):
           if ('2020' in title) and (('Metalcore' in genre) or ('Deathcore' in genre) or ('Post-Hardcore' in genre)):
             img = [img for img in post['attachments'][0]['photo']['sizes'] if img['type'] == 'z'][0]['url']
 
-            print(title)
-            print(img)
-
             if 'Post-Hardcore' in genre:
               style = 'Post-Hardcore'
             elif 'Deathcore' in genre:
@@ -47,8 +45,16 @@ class handler(BaseHTTPRequestHandler):
             else:
               style = 'Metalcore'
 
+            posts.append({
+              'title': title,
+              'img': img,
+              'country': country,
+              'genre': genre,
+              'style': style
+            })
+
     self.send_response(200)
-    self.send_header('Content-type', 'text/plain')
+    self.send_header('Content-type', 'application/json')
     self.end_headers()
-    self.wfile.write(title.encode())
+    self.wfile.write(json.dumps(posts))
     return
