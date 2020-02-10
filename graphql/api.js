@@ -38,6 +38,7 @@ export const useAlbumEntries = () => {
     }
   }`
   const size = 10
+  console.log(process.env.faunaDbSecret)
   const { data, error } = useFetch(process.env.faunaDbGraphQlEndpoint, {
     method: 'POST',
     headers: {
