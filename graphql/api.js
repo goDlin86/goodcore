@@ -41,7 +41,7 @@ export const useAlbumEntries = () => {
   const { data, error } = useFetch(process.env.faunaDbGraphQlEndpoint, {
     method: 'POST',
     headers: {
-        Authorization: `Bearer ${process.env.DBSECRET}`,
+        Authorization: `Bearer ${process.env.faunaDbSecret}`,
         'Content-type': 'application/json',
         Accept: 'application/json',
     },
@@ -95,7 +95,7 @@ export const createAlbumEntry = async (title, img, country, genre, url) => {
   const res = await fetch(process.env.faunaDbGraphQlEndpoint, {
     method: 'POST',
     headers: {
-        Authorization: `Bearer ${process.env.DBSECRET}`,
+        Authorization: `Bearer ${process.env.faunaDbSecret}`,
         'Content-type': 'application/json',
         Accept: 'application/json',
     },
