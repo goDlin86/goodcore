@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 //import Link from 'next/link';
 import Head from '../components/head';
+import { useAlbumEntries } from '../graphql/api'
 //import Nav from '../components/nav';
 
+function getEntries(data) {
+  return data ? data.entries.data.reverse() : []
+}
+
 const Home = () => {
-  const [data, setData] = useState(null);
+  const { data, errorMessage } = useAlbumEntries()
+  const [entries, setEntries] = useState([])
 
   useEffect(() => {
-    async function getData() {
-      const res = await fetch('/api/data');
-      const newData = await res.json();
-      setData(newData);
+    if (!entries.length) {
+      setEntries(getEntries(data))
     }
-    getData();
-  }, []);
+  }, [data, entries.length])
 
   return (
     <div>
@@ -24,15 +27,22 @@ const Home = () => {
       </header>
       <section>
           <h1>Releases</h1>
-          <date class="today">05 Feb 2020</date>
+          <date class="today">10 Feb 2020</date>
 
-          {data ? data.posts.map((post, key) => 
-            <album>
-              <img src={post.img} />
-              <h2>{post.title}</h2>
-            </album>
+          {errorMessage ? (
+            <p>{errorMessage}</p>
+          ) : !data ? (
+            <p>Loading entries...</p>
           ) : (
-            <span className="loading">loading</span>
+            entries.map((entry, index, allEntries) => {
+              const date = new Date(entry._ts / 1000)
+              return (
+                <album>
+                  <img src={entry.img} />
+                  <h2>{entry.title}</h2>
+                </album>
+              )
+            })
           )}
       </section>  
     </div>
