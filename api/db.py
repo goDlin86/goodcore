@@ -39,43 +39,57 @@ class handler(BaseHTTPRequestHandler):
           country = text[2]
           genre = text[1]
 
-          if ('2020' in title) and (('Metalcore' in genre) or ('Deathcore' in genre) or ('Post-Hardcore' in genre)):
-            img = [img for img in post['attachments'][0]['photo']['sizes'] if img['type'] == 'x'][0]['url']
-            url = post['attachments'][1]['link']['url']
+          search = client.query(
+            q.paginate(
+              q.match(
+                q.index("titles"),
+                title
+              )
+            ))
 
-            if 'Post-Hardcore' in genre:
-              style = 'Post-Hardcore'
-            elif 'Deathcore' in genre:
-              style = 'Deathcore'
-            else:
-              style = 'Metalcore'
+          if not search['data']:
 
-            posts.append({
-              'title': title,
-              'date': date,
-              'img': img,
-              'country': country,
-              'genre': genre,
-              'style': style
-            })
+            if ('2020' in title) and (('Metalcore' in genre) or ('Deathcore' in genre) or ('Post-Hardcore' in genre)):
+              img = [img for img in post['attachments'][0]['photo']['sizes'] if img['type'] == 'x'][0]['url']
+              url = post['attachments'][1]['link']['url']
 
-            client.query(
-                q.create(
-                    q.collection("AlbumEntry"),
-                    {
-                    "data": {
-                        'title': title,
-                        'img': img,
-                        'country': country,
-                        'genre': genre,
-                        'url': url
-                        }
-                    }
-                ))
+              if 'Post-Hardcore' in genre:
+                style = 'Post-Hardcore'
+              elif 'Deathcore' in genre:
+                style = 'Deathcore'
+              else:
+                style = 'Metalcore'
+
+              posts.append({
+                'title': title,
+                # 'date': date,
+                'img': img,
+                'country': country,
+                'genre': genre,
+                # 'style': style,
+                'url': url
+              })
+
+    if posts.count > 0:
+      client.query(
+        q.map_expr(
+          lambda post: q.create(
+            q.collection("AlbumEntry"),
+            {
+            "data": {
+                'title': post.title,
+                'img': post.img,
+                'country': post.country,
+                'genre': post.genre,
+                'url': post.url
+                }
+            }
+          ),
+          posts
+        ))
 
     self.send_response(200)
     self.send_header('Content-type', 'application/json')
     self.end_headers()
     self.wfile.write(json.dumps({ 'posts': posts }).encode())
     return
-

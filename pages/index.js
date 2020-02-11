@@ -39,9 +39,12 @@ const Home = () => {
               const date = new Date(entry._ts / 1000)
               return (
                 <album>
-                  <img src={entry.img} />
-                  <h2>{entry.title}</h2>
-                  <h3>{entry.genre + "||| " + entry.country}</h3>
+                  <a href={entry.url} target="_blank">
+                    <img src={entry.img} />
+                    <h2>{entry.title}</h2>
+                    <h3>{entry.genre}</h3>
+                    <h3>{entry.country}</h3>
+                  </a>
                 </album>
               )
             })
