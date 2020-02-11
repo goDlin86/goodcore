@@ -29,6 +29,7 @@ const Home = () => {
           <h1>Releases</h1>
           <date class="today">10 Feb 2020</date>
 
+          <div className="list">
           {errorMessage ? (
             <p>{errorMessage}</p>
           ) : !data ? (
@@ -40,10 +41,12 @@ const Home = () => {
                 <album>
                   <img src={entry.img} />
                   <h2>{entry.title}</h2>
+                  <h3>{entry.genre + "||| " + entry.country}</h3>
                 </album>
               )
             })
           )}
+          </div>
       </section>  
     </div>
   );

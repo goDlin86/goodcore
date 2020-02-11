@@ -41,14 +41,27 @@ date.today {
   background-color: deeppink;
 }
 
+.list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: space-between;
+}
 album {
     display: block;
 }
 album img {
+    display: block;
     width: 400px;
 }
 album h2 {
     font-size: 1.2em;
+    font-family: Nexa, sans-serif;
+    margin: 0;
+    background-color: #07b1ff;
+    padding: 5px;
+}
+album h3 {
+    font-size: 1em;
     font-family: Nexa, sans-serif;
     margin: 0;
     background-color: #07b1ff;
