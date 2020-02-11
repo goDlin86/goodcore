@@ -70,23 +70,38 @@ class handler(BaseHTTPRequestHandler):
                 'url': url
               })
 
-    if posts.count > 0:
-      client.query(
-        q.map_expr(
-          lambda post: q.create(
-            q.collection("AlbumEntry"),
-            {
-            "data": {
-                'title': post.title,
-                'img': post.img,
-                'country': post.country,
-                'genre': post.genre,
-                'url': post.url
-                }
-            }
-          ),
-          posts
-        ))
+              client.query(
+                q.create(
+                  q.collection('AlbumEntry'),
+                  {'data': {
+                    'title': title,
+                    # 'date': date,
+                    'img': img,
+                    'country': country,
+                    'genre': genre,
+                    # 'style': style,
+                    'url': url
+                  }}
+                )
+              )
+
+    # if posts.count > 0:
+    #   client.query(
+    #     q.map_(
+    #       lambda post: q.create(
+    #         q.collection("AlbumEntry"),
+    #         {
+    #         "data": {
+    #             'title': post.title,
+    #             'img': post.img,
+    #             'country': post.country,
+    #             'genre': post.genre,
+    #             'url': post.url
+    #             }
+    #         }
+    #       ),
+    #       posts
+    #     ))
 
     self.send_response(200)
     self.send_header('Content-type', 'application/json')
