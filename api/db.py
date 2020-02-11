@@ -51,7 +51,7 @@ class handler(BaseHTTPRequestHandler):
 
             if ('2020' in title) and (('Metalcore' in genre) or ('Deathcore' in genre) or ('Post-Hardcore' in genre)):
               img = [img for img in post['attachments'][0]['photo']['sizes'] if img['type'] == 'x'][0]['url']
-              url = post['attachments'][1]['link']['url']
+              url = [link for link in post['attachments'] if link['type'] == 'link'][0]['link']['url']
 
               if 'Post-Hardcore' in genre:
                 style = 'Post-Hardcore'
