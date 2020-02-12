@@ -49,15 +49,21 @@ date.today {
 album {
     display: block;
 }
+album a {
+    
+    text-decoration: none;
+}
 album img {
     display: block;
-    width: 400px;
+    object-fit: cover;
+    width: 100%;
 }
 album h2 {
     font-size: 1.2em;
     font-family: Nexa, sans-serif;
     margin: 0;
     background-color: #07b1ff;
+    color: #f2f2f2;
     padding: 5px;
 }
 album h3 {
@@ -67,4 +73,24 @@ album h3 {
     background-color: #07b1ff;
     color: #363636;
     padding: 5px;
+}
+
+
+@media screen and (max-width: 1040px) {
+    .list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media screen and (max-width: 640px) {
+    header {
+        font-size: 75px;
+    }
+    .list {
+        grid-template-columns: 1fr;
+    }
+}
+@media screen and (max-width: 440px) {
+    header {
+        font-size: 70px;
+    }
 }
