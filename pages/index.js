@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 //import Link from 'next/link';
 import Head from '../components/head';
+import Album from '../components/album';
 import { useAlbumEntries } from '../graphql/api'
 //import Nav from '../components/nav';
 
@@ -30,25 +31,18 @@ const Home = () => {
           <date class="today">10 Feb 2020</date>
 
           <div className="list">
-          {errorMessage ? (
-            <p>{errorMessage}</p>
-          ) : !data ? (
-            <p>Loading entries...</p>
-          ) : (
-            entries.map((entry, index, allEntries) => {
-              const date = new Date(entry._ts / 1000)
-              return (
-                <album>
-                  <a href={entry.url} target="_blank">
-                    <img src={entry.img} />
-                    <h2>{entry.title}</h2>
-                    <h3>{entry.genre}</h3>
-                    <h3>{entry.country}</h3>
-                  </a>
-                </album>
-              )
-            })
-          )}
+            {errorMessage ? (
+              <p>{errorMessage}</p>
+            ) : !data ? (
+              <p>Loading entries...</p>
+            ) : (
+              entries.map((entry, index, allEntries) => {
+                const date = new Date(entry._ts / 1000)
+                return (
+                  <Album album={entry} />
+                )
+              })
+            )}
           </div>
       </section>  
     </div>
