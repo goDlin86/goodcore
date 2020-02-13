@@ -8,7 +8,7 @@
 }
 
 body {
-    background-color: black;
+    background-color: #1c1c21;
     font-family:'Open Sans', sans-serif;
     color: #f2f2f2;
     font-size: 22px;
@@ -50,12 +50,12 @@ album {
     display: block;
     background-color: #07b1ff;
     font-family: Nexa, sans-serif;
+    transition: opacity 0.3s;
 }
 album a {
     text-decoration: none;
-    transition: opacity 0.3s;
 }
-album a:hover {
+album:hover {
     opacity: 0.7;
 }
 album img {
