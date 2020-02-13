@@ -50,7 +50,8 @@ album {
     display: block;
     background-color: #07b1ff;
     font-family: Nexa, sans-serif;
-    transition: opacity 0.3s;
+    opacity: 0;
+    transition: opacity,transform 0.3s;
 }
 album a {
     text-decoration: none;

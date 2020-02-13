@@ -39,7 +39,7 @@ const Home = () => {
               entries.map((entry, index, allEntries) => {
                 const date = new Date(entry._ts / 1000)
                 return (
-                  <Album album={entry} />
+                  <Album album={entry} index={index} />
                 )
               })
             )}
