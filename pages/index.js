@@ -75,7 +75,6 @@ const Home = () => {
                   <date class="today">{date.date}</date>
                   <div className="list">
                     {date.albums.map((album, index, allAlbums) => {
-                      const date = new Date(entry._ts / 1000)
                       return (
                         <Album album={album} index={index} />
                       )
