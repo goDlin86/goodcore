@@ -11,7 +11,7 @@ class handler(BaseHTTPRequestHandler):
     def do_POST(self):
         client = FaunaClient(secret=os.environ.get('DBSECRET'))
 
-        content_len = int(self.headers.getheader('content-length', 0))
+        content_len = int(self.headers['content-length'])
         post_body = self.rfile.read(content_len)
 
         print(post_body)
