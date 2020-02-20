@@ -51,6 +51,7 @@ const Home = () => {
       });
       const newData = await res.json()
       const dataByDate = getDataByDate(newData)
+      console.log(dataByDate)
       setData(dataByDate)
     }
     getData()
@@ -71,9 +72,9 @@ const Home = () => {
             data.dates.map(date => {
               return (
                 <div>
-                  <date class="today">{date}</date>
+                  <date class="today">{date.date}</date>
                   <div className="list">
-                    {data.albums.map((album, index, allAlbums) => {
+                    {date.albums.map((album, index, allAlbums) => {
                       const date = new Date(entry._ts / 1000)
                       return (
                         <Album album={album} index={index} />
