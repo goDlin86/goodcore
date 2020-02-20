@@ -22,9 +22,9 @@ function getErrorMessage(error, data) {
 | Learn more about GraphQL: https://graphql.org/learn/
 |--------------------------------------------------
 */
-export const useAlbumEntries = () => {
-  const query = `query Entries($size: Int) {
-    entries(_size: $size) {
+export const useAlbumEntries = (cursor = null) => {
+  const query = `query Entries($size: Int, $cursor: String) {
+    entries(_size: $size, _cursor: $cursor) {
         data {
             _id
             _ts
@@ -37,7 +37,7 @@ export const useAlbumEntries = () => {
         after
     }
   }`
-  const size = 10
+  const size = 8
   const { data, error } = useFetch(process.env.faunaDbGraphQlEndpoint, {
     method: 'POST',
     headers: {
@@ -47,7 +47,7 @@ export const useAlbumEntries = () => {
     },
     body: JSON.stringify({
         query,
-        variables: { size },
+        variables: { size, cursor },
     }),
   })
  

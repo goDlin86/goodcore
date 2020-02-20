@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 
 const Album = ({ album, index }) => (
     <album>
-        <a href={album.url} target="_blank">
+        <a href={'https://vk.com/feed?w=wall' + album.groupid + '_' + album.postid} target="_blank">
             <img src={album.img} />
             <h2>{album.title}</h2>
             <h3>{album.genre}</h3>
@@ -17,4 +17,4 @@ const Album = ({ album, index }) => (
     </album>
 )
 
-export default Album;
+export default Album

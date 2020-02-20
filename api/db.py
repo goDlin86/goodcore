@@ -2,6 +2,7 @@ from http.server import BaseHTTPRequestHandler
 from faunadb import query as q
 from faunadb.objects import Ref
 from faunadb.client import FaunaClient
+from datetime import datetime
 import vk_api
 import json
 import os
@@ -31,8 +32,8 @@ class handler(BaseHTTPRequestHandler):
       remote_wall = vk.wall.get(count=10, owner_id=group)
 
       for post in remote_wall['items']:
-        # id = post['id']
-        date = post['date']
+        postid = post['id']
+        date = datetime.fromtimestamp(post['date']).strftime('%m/%d/%Y')
         text = [t for t in post['text'].split('\n') if len(t) > 1]
         if len(text) > 2:
           title = text[0]
@@ -62,46 +63,42 @@ class handler(BaseHTTPRequestHandler):
 
               posts.append({
                 'title': title,
-                # 'date': date,
+                'date': date,
                 'img': img,
                 'country': country,
                 'genre': genre,
                 # 'style': style,
+                'groupid': group,
+                'postid': postid,
                 'url': url
               })
 
-              client.query(
-                q.create(
-                  q.collection('AlbumEntry'),
-                  {'data': {
-                    'title': title,
-                    # 'date': date,
-                    'img': img,
-                    'country': country,
-                    'genre': genre,
-                    # 'style': style,
-                    'url': url
-                  }}
-                )
-              )
+              # client.query(
+              #   q.create(
+              #     q.collection('AlbumEntry'),
+              #     {'data': {
+              #       'title': title,
+              #       'date': date,
+              #       'img': img,
+              #       'country': country,
+              #       'genre': genre,
+              #       # 'style': style,
+              #       'groupid': group,
+              #       'postid': postid,
+              #       'url': url
+              #     }}
+              #   )
+              # )
 
-    # if posts.count > 0:
-    #   client.query(
-    #     q.map_(
-    #       lambda post: q.create(
-    #         q.collection("AlbumEntry"),
-    #         {
-    #         "data": {
-    #             'title': post.title,
-    #             'img': post.img,
-    #             'country': post.country,
-    #             'genre': post.genre,
-    #             'url': post.url
-    #             }
-    #         }
-    #       ),
-    #       posts
-    #     ))
+    if posts.count > 0:
+      client.query(
+        q.map_(
+          lambda post: q.create(
+            q.collection("AlbumEntry"),
+            {"data": post}
+          ),
+          posts
+        ))
 
     self.send_response(200)
     self.send_header('Content-type', 'application/json')

@@ -1,23 +1,49 @@
-import React, { useEffect, useState } from 'react';
-//import Link from 'next/link';
-import Head from '../components/head';
-import Album from '../components/album';
-import { useAlbumEntries } from '../graphql/api'
-//import Nav from '../components/nav';
+import React, { useEffect, useState } from 'react'
+//import Link from 'next/link'
+import Head from '../components/head'
+import Album from '../components/album'
+//import { useAlbumEntries } from '../graphql/api'
+//import Nav from '../components/nav'
+
 
 function getEntries(data) {
   return data ? data.entries.data.reverse() : []
 }
 
+function getCursor(data) {
+  return data ? data.after : null
+}
+
 const Home = () => {
-  const { data, errorMessage } = useAlbumEntries()
+  //const { data, errorMessage } = useAlbumEntries()
   const [entries, setEntries] = useState([])
+  //const [cursor, setCursor] = useState(null)
+
+  // useEffect(() => {
+  //   if (!entries.length) {
+  //     setEntries(getEntries(data))
+  //     setCursor(getCursor(data))
+  //   }
+  // }, [data, entries.length])
 
   useEffect(() => {
-    if (!entries.length) {
-      setEntries(getEntries(data))
+    async function getEntries() {
+      const res = await fetch('/api/getAlbums', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          'after': 'sadasd'
+        }),
+      });
+      const newEntries = await res.json()
+      console.log(newEntries)
+      setEntries(newEntries)
     }
-  }, [data, entries.length])
+    getEntries()
+  }, [])
 
   return (
     <div>
@@ -46,7 +72,7 @@ const Home = () => {
           </div>
       </section>  
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
