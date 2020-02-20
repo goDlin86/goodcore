@@ -46,7 +46,7 @@ class handler(BaseHTTPRequestHandler):
 
         after = ''
         if 'after' in albums:
-            after = albums['after']
+            after = albums['after'][1].id()
 
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
