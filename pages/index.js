@@ -6,13 +6,13 @@ import Album from '../components/album'
 //import Nav from '../components/nav'
 
 
-function getEntries(data) {
-  return data ? data.entries.data.reverse() : []
-}
+// function getEntries(data) {
+//   return data ? data.entries.data.reverse() : []
+// }
 
-function getCursor(data) {
-  return data ? data.after : null
-}
+// function getCursor(data) {
+//   return data ? data.after : null
+// }
 
 const Home = () => {
   //const { data, errorMessage } = useAlbumEntries()
@@ -57,9 +57,7 @@ const Home = () => {
           <date class="today">10 Feb 2020</date>
 
           <div className="list">
-            {errorMessage ? (
-              <p>{errorMessage}</p>
-            ) : !data ? (
+            {entries.length == 0 ? (
               <p>Loading entries...</p>
             ) : (
               entries.map((entry, index, allEntries) => {
