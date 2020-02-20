@@ -57,7 +57,7 @@ const Home = () => {
           <date class="today">10 Feb 2020</date>
 
           <div className="list">
-            {!entries ? (
+            {entries.length == 0 ? (
               <p>Loading entries...</p>
             ) : (
               entries.albums.map((entry, index, allEntries) => {
