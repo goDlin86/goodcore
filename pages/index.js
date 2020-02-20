@@ -57,16 +57,7 @@ const Home = () => {
           <date class="today">10 Feb 2020</date>
 
           <div className="list">
-            {entries.length == 0 ? (
-              <p>Loading entries...</p>
-            ) : (
-              entries.map((entry, index, allEntries) => {
-                const date = new Date(entry._ts / 1000)
-                return (
-                  <Album album={entry} index={index} />
-                )
-              })
-            )}
+
           </div>
       </section>  
     </div>
