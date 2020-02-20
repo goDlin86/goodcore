@@ -24,7 +24,7 @@ class handler(BaseHTTPRequestHandler):
                     lambda x: q.get(q.select(1, x)),
                     q.paginate(
                         q.match(q.index("dateDesc")),
-                        size=4
+                        size=8
                     )
                 )
             )
@@ -34,7 +34,7 @@ class handler(BaseHTTPRequestHandler):
                     lambda x: q.get(q.select(1, x)),
                     q.paginate(
                         q.match(q.index("dateDesc")),
-                        size=4,
+                        size=8,
                         after=after
                     )
                 )
