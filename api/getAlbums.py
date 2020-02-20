@@ -14,6 +14,8 @@ class handler(BaseHTTPRequestHandler):
         content_len = int(self.headers.getheader('content-length', 0))
         post_body = self.rfile.read(content_len)
 
+        print(post_body)
+
         # if isFirstPage:
         #     albums = client.query(
         #         q.map_(
@@ -40,5 +42,5 @@ class handler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
-        self.wfile.write(json.dumps({ 'posts': post_body }).encode())
+        self.wfile.write(json.dumps({ 'posts': post_body.encode("UTF-8") }).encode())
         return
