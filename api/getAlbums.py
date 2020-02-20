@@ -44,8 +44,12 @@ class handler(BaseHTTPRequestHandler):
         for album in albums['data']:
             a.append(album['data'])
 
+        after = ''
+        if 'after' in albums:
+            after = albums['after']
+
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
-        self.wfile.write(json.dumps({ 'albums': a }).encode())
+        self.wfile.write(json.dumps({ 'albums': a, 'after': after }).encode())
         return
