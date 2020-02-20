@@ -35,7 +35,7 @@ const Home = () => {
           Accept: 'application/json',
         },
         body: JSON.stringify({
-          'after': 'sadasd'
+          'after': ''
         }),
       });
       const newEntries = await res.json()

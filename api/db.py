@@ -90,7 +90,7 @@ class handler(BaseHTTPRequestHandler):
               #   )
               # )
 
-    if posts.count > 0:
+    if len(posts) > 0:
       client.query(
         q.map_(
           lambda post: q.create(

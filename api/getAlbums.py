@@ -15,32 +15,37 @@ class handler(BaseHTTPRequestHandler):
         content_len = int(self.headers['content-length'])
         post_body = self.rfile.read(content_len)
         data = json.loads(post_body)
+        after = data['after']
 
-        # if isFirstPage:
-        #     albums = client.query(
-        #         q.map_(
-        #             lambda x: q.get(q.select(1, x)),
-        #             q.paginate(
-        #                 q.match(q.index("dateDesc")),
-        #                 size=4
-        #             )
-        #         )
-        #     )
-        # else:
-        #     albums = client.query(
-        #         q.map_(
-        #             lambda x: q.get(q.select(1, x)),
-        #             q.paginate(
-        #                 q.match(q.index("dateDesc")),
-        #                 size=4,
-        #                 after=afterPtr
-        #             )
-        #         )
-        #     )
+        albums = []
+        if len(after) == 0:
+            albums = client.query(
+                q.map_(
+                    lambda x: q.get(q.select(1, x)),
+                    q.paginate(
+                        q.match(q.index("dateDesc")),
+                        size=4
+                    )
+                )
+            )
+        else:
+            albums = client.query(
+                q.map_(
+                    lambda x: q.get(q.select(1, x)),
+                    q.paginate(
+                        q.match(q.index("dateDesc")),
+                        size=4,
+                        after=after
+                    )
+                )
+            )
 
+        a = []
+        for album in albums['data']:
+            a.append(album['data'])
 
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
-        self.wfile.write(json.dumps({ 'posts': data['after'] }).encode())
+        self.wfile.write(json.dumps({ 'albums': a }).encode())
         return
