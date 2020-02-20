@@ -6,6 +6,9 @@ from datetime import datetime
 import json
 import os
 
+from io import BytesIO
+
+
 class handler(BaseHTTPRequestHandler):
 
     def do_POST(self):
@@ -13,8 +16,6 @@ class handler(BaseHTTPRequestHandler):
 
         content_len = int(self.headers['content-length'])
         post_body = self.rfile.read(content_len)
-
-        print(post_body)
 
         # if isFirstPage:
         #     albums = client.query(
@@ -42,5 +43,10 @@ class handler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
-        self.wfile.write(json.dumps({ 'posts': post_body.encode("UTF-8") }).encode())
+        # self.wfile.write(json.dumps({ 'posts': post_body }).encode())
+        response = BytesIO()
+        response.write(b'This is POST request. ')
+        response.write(b'Received: ')
+        response.write(post_body)
+        self.wfile.write(json.dumps({ 'posts': response.getvalue() }).encode())
         return
