@@ -14,10 +14,21 @@ import Album from '../components/album'
 //   return data ? data.after : null
 // }
 
+function getDataByDate(data) {
+  //var now = new Date()
+
+  var dates = data.albums.map(album => album.date)
+  dates = [...new Set(dates)]
+  dates = dates.map(date => {
+    return { date, albums: data.albums.filter(a => a.date === date) }
+  })
+  
+  return {'after': data.after, dates}
+}
+
 const Home = () => {
   //const { data, errorMessage } = useAlbumEntries()
-  const [entries, setEntries] = useState([])
-  //const [cursor, setCursor] = useState(null)
+  const [data, setData] = useState([])
 
   // useEffect(() => {
   //   if (!entries.length) {
@@ -27,7 +38,7 @@ const Home = () => {
   // }, [data, entries.length])
 
   useEffect(() => {
-    async function getEntries() {
+    async function getData() {
       const res = await fetch('/api/getAlbums', {
         method: 'POST',
         headers: {
@@ -35,14 +46,14 @@ const Home = () => {
           Accept: 'application/json',
         },
         body: JSON.stringify({
-          'after': '257896197962863106'
+          'after': data.after || ''
         }),
       });
-      const newEntries = await res.json()
-      console.log(newEntries)
-      setEntries(newEntries)
+      const newData = await res.json()
+      const dataByDate = getDataByDate(newData)
+      setData(dataByDate)
     }
-    getEntries()
+    getData()
   }, [])
 
   return (
@@ -54,20 +65,26 @@ const Home = () => {
       </header>
       <section>
           <h1>Releases</h1>
-          <date class="today">10 Feb 2020</date>
-
-          <div className="list">
-            {entries.length == 0 ? (
-              <p>Loading entries...</p>
-            ) : (
-              entries.albums.map((entry, index, allEntries) => {
-                const date = new Date(entry._ts / 1000)
-                return (
-                  <Album album={entry} index={index} />
-                )
-              })
-            )}
-          </div>
+          {data.length == 0 ? (
+            <p>Loading entries...</p>
+          ) : (
+            data.dates.map(date => {
+              return (
+                <div>
+                  <date class="today">{date}</date>
+                  <div className="list">
+                    {data.albums.map((album, index, allAlbums) => {
+                      const date = new Date(entry._ts / 1000)
+                      return (
+                        <Album album={album} index={index} />
+                      )
+                    })
+                  }
+                  </div>
+                </div>
+              )
+            })
+          )}
       </section>  
     </div>
   )
