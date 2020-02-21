@@ -31,16 +31,16 @@ const Home = () => {
   //const { data, errorMessage } = useAlbumEntries()
   const [data, setData] = useState([])
 
-  // useEffect(() => {
+  //useEffect(() => {
   //   if (!entries.length) {
   //     setEntries(getEntries(data))
   //     setCursor(getCursor(data))
   //   }
   // }, [data, entries.length])
 
-  // useEffect(() => {
-  //   getData()
-  // }, [])
+  useEffect(() => {
+     getData()
+  }, [])
 
   const getData = async () => {
     const res = await fetch('/api/getAlbums', {
@@ -72,7 +72,7 @@ const Home = () => {
             <p>Loading entries...</p>
           ) : (
             <InfiniteScroll
-              dataLength={data.dates.length} //This is important field to render the next data
+              dataLength={data.dates.length}
               next={getData}
               hasMore={true}
               loader={<p>Loading entries...</p>}
