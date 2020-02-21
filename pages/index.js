@@ -4,6 +4,7 @@ import Head from '../components/head'
 import Album from '../components/album'
 //import { useAlbumEntries } from '../graphql/api'
 //import Nav from '../components/nav'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 
 // function getEntries(data) {
@@ -69,21 +70,29 @@ const Home = () => {
           {data.length == 0 ? (
             <p>Loading entries...</p>
           ) : (
-            data.dates.map(date => {
-              return (
+            <InfiniteScroll
+              dataLength={data.dates.length} //This is important field to render the next data
+              next={getData}
+              hasMore={true}
+              loader={<p>Loading entries...</p>}
+              endMessage={
+                <p style={{textAlign: 'center'}}>
+                  <b>Больше нет</b>
+                </p>
+              }>
+              {data.dates.map(date => (
                 <div>
                   <date class="today">{date.date}</date>
                   <div className="list">
-                    {date.albums.map((album, index, allAlbums) => {
-                      return (
+                    {date.albums.map((album, index, allAlbums) => (
                         <Album album={album} index={index} />
                       )
-                    })
-                  }
+                    )}
                   </div>
                 </div>
-              )
-            })
+                )
+              )}
+            </InfiniteScroll>
           )}
       </section>  
     </div>
