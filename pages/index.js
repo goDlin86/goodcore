@@ -56,7 +56,7 @@ const Home = () => {
     const newData = await res.json()
     const dataByDate = getDataByDate(newData)
     console.log(dataByDate)
-    setData(dataByDate)
+    setData(data.concat(dataByDate))
   }
 
   return (
