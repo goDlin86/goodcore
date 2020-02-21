@@ -42,7 +42,7 @@ const Home = () => {
   //   getData()
   // }, [])
 
-  getData(async () => {
+  const getData = async () => {
     const res = await fetch('/api/getAlbums', {
       method: 'POST',
       headers: {
@@ -57,7 +57,7 @@ const Home = () => {
     const dataByDate = getDataByDate(newData)
     console.log(dataByDate)
     setData(dataByDate)
-  })
+  }
 
   return (
     <div>
