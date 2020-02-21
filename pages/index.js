@@ -38,25 +38,26 @@ const Home = () => {
   //   }
   // }, [data, entries.length])
 
-  useEffect(() => {
-    async function getData() {
-      const res = await fetch('/api/getAlbums', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          'after': data.after || ''
-        }),
-      });
-      const newData = await res.json()
-      const dataByDate = getDataByDate(newData)
-      console.log(dataByDate)
-      setData(dataByDate)
-    }
-    getData()
-  }, [])
+  // useEffect(() => {
+  //   getData()
+  // }, [])
+
+  getData(async () => {
+    const res = await fetch('/api/getAlbums', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        'after': data.after || ''
+      }),
+    });
+    const newData = await res.json()
+    const dataByDate = getDataByDate(newData)
+    console.log(dataByDate)
+    setData(dataByDate)
+  })
 
   return (
     <div>
