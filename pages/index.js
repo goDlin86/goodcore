@@ -17,7 +17,7 @@ function getDataByDate(oldData, newData) {
     return { date, albums: newData.albums.filter(a => a.date === date) }
   })
   
-  return {'after': newData.after, 'dates': oldData.dates ? oldData.dates.concat(newDates) : newDates}
+  return {'afterDate': newData.afterDate, 'after': newData.after, 'dates': oldData.dates ? oldData.dates.concat(newDates) : newDates}
 }
 
 const Home = () => {
@@ -43,7 +43,8 @@ const Home = () => {
         Accept: 'application/json',
       },
       body: JSON.stringify({
-        'after': data.after || ''
+        'after': data.after || '',
+        'afterDate': data.afterDate || ''
       }),
     });
     const newData = await res.json()
@@ -62,13 +63,13 @@ const Home = () => {
       <section>
           <h1>Releases</h1>
           {data.length == 0 ? (
-            <p>Loading entries...</p>
+            <p>Loading...</p>
           ) : (
             <InfiniteScroll
               dataLength={data.dates.length}
               next={getData}
               hasMore={true}
-              loader={<p>Loading entries...</p>}
+              loader={<p>Loading...</p>}
               endMessage={
                 <p style={{textAlign: 'center'}}>
                   <b>Больше нет</b>
