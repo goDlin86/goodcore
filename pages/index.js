@@ -11,15 +11,13 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 // }
 
 function getDataByDate(oldData, newData) {
-  var oldDates = oldData.dates
-  var dates = newData.albums.map(album => album.date)
-  dates = [...oldDates, ...dates]
-  dates = [...new Set(dates)]
-  dates = dates.map(date => {
+  var newDates = newData.albums.map(album => album.date)
+  newDates = [...new Set(newDates)]
+  newDates = newDates.map(date => {
     return { date, albums: newData.albums.filter(a => a.date === date) }
   })
   
-  return {'after': newData.after, dates}
+  return {'after': newData.after, 'dates': oldData.dates ? oldData.dates.concat(newDates) : newDates}
 }
 
 const Home = () => {
