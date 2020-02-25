@@ -18,7 +18,6 @@ class handler(BaseHTTPRequestHandler):
         after = data['after']
 
         albums = []
-        print(len(after))
         if len(after) == 0:
             albums = client.query(
                 q.map_(
@@ -36,7 +35,7 @@ class handler(BaseHTTPRequestHandler):
                     q.paginate(
                         q.match(q.index("dateDesc")),
                         size=8,
-                        after=after
+                        after=q.ref(q.collection("AlbumEntry"), after)
                     )
                 )
             )
