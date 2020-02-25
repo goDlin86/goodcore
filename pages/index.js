@@ -7,19 +7,18 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 
 
 function getDataByDate(oldData, newData) {
+  if (!oldData.dates) oldData.dates = []
   var oldDates = oldData.dates ? oldData.dates.map(d => d.date) : []
   var newDates = newData.albums.map(album => album.date)
   newDates = [...new Set(newDates)]
   newDates = newDates.map(date => {
-    if (oldDates.includes(date)) {
+    if (oldDates.includes(date))
       oldData.dates.find(d => d.date == date).albums.concat(newData.albums.filter(a => a.date === date))
-      return false
-    }
     else 
-      return { date, albums: newData.albums.filter(a => a.date === date) }
+      oldData.dates.push({ date, albums: newData.albums.filter(a => a.date === date) })
   })
   
-  return {'afterDate': newData.afterDate, 'after': newData.after, 'dates': oldData.dates ? oldData.dates.concat(newDates) : newDates}
+  return {'afterDate': newData.afterDate, 'after': newData.after, 'dates': oldData.dates}
 }
 
 const Home = () => {
