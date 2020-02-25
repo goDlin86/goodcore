@@ -7,7 +7,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 
 
 function getDataByDate(oldData, newData) {
-  var oldDates = oldData.dates.map(d => d.date) || []
+  var oldDates = oldData.dates ? oldData.dates.map(d => d.date) : []
   var newDates = newData.albums.map(album => album.date)
   newDates = [...new Set(newDates)]
   newDates = newDates.map(date => {
