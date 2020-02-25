@@ -18,6 +18,7 @@ class handler(BaseHTTPRequestHandler):
         after = data['after']
 
         albums = []
+        print(len(after))
         if len(after) == 0:
             albums = client.query(
                 q.map_(
