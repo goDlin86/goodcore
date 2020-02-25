@@ -11,8 +11,10 @@ function getDataByDate(oldData, newData) {
   var newDates = newData.albums.map(album => album.date)
   newDates = [...new Set(newDates)]
   newDates = newDates.map(date => {
-    if (oldDates.includes(date))
+    if (oldDates.includes(date)) {
       oldData.dates.find(d => d.date == date).albums.concat(newData.albums.filter(a => a.date === date))
+      return false
+    }
     else 
       return { date, albums: newData.albums.filter(a => a.date === date) }
   })
