@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import Head from '../components/head'
 import Album from '../components/album'
 //import { useAlbumEntries } from '../graphql/api'
-//import Nav from '../components/nav'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 
@@ -11,20 +10,16 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 //   return data ? data.entries.data.reverse() : []
 // }
 
-// function getCursor(data) {
-//   return data ? data.after : null
-// }
-
-function getDataByDate(data) {
-  //var now = new Date()
-
-  var dates = data.albums.map(album => album.date)
+function getDataByDate(oldData, newData) {
+  var oldDates = oldData.dates
+  var dates = newData.albums.map(album => album.date)
+  dates = [...oldDates, ...dates]
   dates = [...new Set(dates)]
   dates = dates.map(date => {
-    return { date, albums: data.albums.filter(a => a.date === date) }
+    return { date, albums: newData.albums.filter(a => a.date === date) }
   })
   
-  return {'after': data.after, dates}
+  return {'after': newData.after, dates}
 }
 
 const Home = () => {
@@ -54,9 +49,9 @@ const Home = () => {
       }),
     });
     const newData = await res.json()
-    const dataByDate = getDataByDate(newData)
+    const dataByDate = getDataByDate(data, newData)
     console.log(dataByDate)
-    setData(data.concat(dataByDate))
+    setData(dataByDate)
   }
 
   return (
