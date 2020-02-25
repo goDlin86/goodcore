@@ -19,7 +19,7 @@ class handler(BaseHTTPRequestHandler):
         afterDate = data['afterDate']
 
         albums = []
-        if len(after) == 0:
+        if len(afterDate) == 0:
             albums = client.query(
                 q.map_(
                     lambda x: q.get(q.select(1, x)),
@@ -30,16 +30,17 @@ class handler(BaseHTTPRequestHandler):
                 )
             )
         else:
-            albums = client.query(
-                q.map_(
-                    lambda x: q.get(q.select(1, x)),
-                    q.paginate(
-                        q.match(q.index("dateDesc")),
-                        size=8,
-                        after=[afterDate, q.ref(q.collection("AlbumEntry"), after), q.ref(q.collection("AlbumEntry"), after)]
+            if len(after) > 0:
+                albums = client.query(
+                    q.map_(
+                        lambda x: q.get(q.select(1, x)),
+                        q.paginate(
+                            q.match(q.index("dateDesc")),
+                            size=8,
+                            after=[afterDate, q.ref(q.collection("AlbumEntry"), after), q.ref(q.collection("AlbumEntry"), after)]
+                        )
                     )
                 )
-            )
 
         a = []
         for album in albums['data']:

@@ -6,15 +6,15 @@ import Album from '../components/album'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
 
-// function getEntries(data) {
-//   return data ? data.entries.data.reverse() : []
-// }
-
 function getDataByDate(oldData, newData) {
+  var oldDates = oldDates.dates.map(d => d.date)
   var newDates = newData.albums.map(album => album.date)
   newDates = [...new Set(newDates)]
   newDates = newDates.map(date => {
-    return { date, albums: newData.albums.filter(a => a.date === date) }
+    if (date in oldDates)
+      return oldData.dates.find(d => d.date == date).concat(newData.albums.filter(a => a.date === date))
+    else 
+      return { date, albums: newData.albums.filter(a => a.date === date) }
   })
   
   return {'afterDate': newData.afterDate, 'after': newData.after, 'dates': oldData.dates ? oldData.dates.concat(newDates) : newDates}
@@ -27,7 +27,6 @@ const Home = () => {
   //useEffect(() => {
   //   if (!entries.length) {
   //     setEntries(getEntries(data))
-  //     setCursor(getCursor(data))
   //   }
   // }, [data, entries.length])
 
