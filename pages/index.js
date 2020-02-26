@@ -80,7 +80,7 @@ const Home = () => {
               dataLength={data.dates.length}
               next={getData}
               hasMore={true}
-              threshold={100}
+              scrollThreshold={0.95}
               loader={<p>Loading...</p>}
               endMessage={
                 <p style={{textAlign: 'center'}}>
