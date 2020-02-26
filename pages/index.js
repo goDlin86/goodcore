@@ -58,6 +58,7 @@ const Home = () => {
       }),
     });
     const newData = await res.json()
+    console.log(newData)
     const dataByDate = getDataByDate(data, newData)
     console.log(dataByDate)
     setData(dataByDate)
