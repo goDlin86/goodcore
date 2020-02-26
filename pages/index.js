@@ -63,7 +63,7 @@ const Home = () => {
             <p>Loading...</p>
           ) : (
             <InfiniteScroll
-              dataLength={data.dates.flat(2).length}
+              dataLength={data.dates.reduce((count, d) => count + d.albums.length, 0)}
               next={getData}
               hasMore={true}
               scrollThreshold={0.95}
