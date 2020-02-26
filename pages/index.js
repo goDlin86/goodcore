@@ -7,19 +7,6 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 
 
 function getDataByDate(oldData, newData) {
-  // if (!oldData.dates) oldData.dates = []
-  // var oldDates = oldData.dates ? oldData.dates.map(d => d.date) : []
-  // var newDates = newData.albums.map(album => album.date)
-  // newDates = [...new Set(newDates)]
-  // newDates = newDates.map(date => {
-  //   if (oldDates.includes(date))
-  //     oldData.dates.find(d => d.date == date).albums.concat(newData.albums.filter(a => a.date === date))
-  //   else 
-  //     oldData.dates.push({ date, albums: newData.albums.filter(a => a.date === date) })
-  // })
-  
-  // return {'afterDate': newData.afterDate, 'after': newData.after, 'dates': oldData.dates}
-
   const oldAlbums = oldData.dates ? oldData.dates.reduce((all, d) => all.concat(d.albums), []) : []
   const allAlbums = oldAlbums.concat(newData.albums)
   var dates = allAlbums.map(a => a.date)
@@ -46,7 +33,6 @@ const Home = () => {
   }, [])
 
   const getData = async () => {
-    console.log('load')
     const res = await fetch('/api/getAlbums', {
       method: 'POST',
       headers: {
@@ -77,7 +63,7 @@ const Home = () => {
             <p>Loading...</p>
           ) : (
             <InfiniteScroll
-              dataLength={data.dates.length}
+              dataLength={data.dates.flat(2).length}
               next={getData}
               hasMore={true}
               scrollThreshold={0.95}
