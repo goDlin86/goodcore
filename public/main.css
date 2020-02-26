@@ -43,7 +43,7 @@ date.today {
 
 .list {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 10px;
     margin-bottom: 20px;
 }
@@ -79,22 +79,17 @@ album h3 {
 }
 
 
-@media screen and (max-width: 1040px) {
-    .list {
-        grid-template-columns: 1fr 1fr;
-    }
-}
 @media screen and (max-width: 640px) {
     header {
         font-size: 75px;
     }
-    .list {
-        grid-template-columns: 1fr;
-    }
 }
-@media screen and (max-width: 440px) {
+@media screen and (max-width: 459px) {
     header {
         font-size: 70px;
         letter-spacing: normal;
+    }
+    .list {
+        grid-template-columns: 1fr;
     }
 }
