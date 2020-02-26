@@ -20,7 +20,7 @@ function getDataByDate(oldData, newData) {
   
   // return {'afterDate': newData.afterDate, 'after': newData.after, 'dates': oldData.dates}
 
-  const oldAlbums = oldData.dates ? oldData.dates.reduce((all, d) => all.concat(d.albums)) : []
+  const oldAlbums = oldData.dates ? oldData.dates.reduce((all, d) => all.concat(d.albums), []) : []
   const allAlbums = oldAlbums.concat(newData.albums)
   var dates = allAlbums.map(a => a.date)
   dates = [...new Set(dates)]
