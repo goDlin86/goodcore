@@ -46,6 +46,7 @@ const Home = () => {
   }, [])
 
   const getData = async () => {
+    console.log('load')
     const res = await fetch('/api/getAlbums', {
       method: 'POST',
       headers: {
@@ -58,7 +59,6 @@ const Home = () => {
       }),
     });
     const newData = await res.json()
-    console.log(newData)
     const dataByDate = getDataByDate(data, newData)
     console.log(dataByDate)
     setData(dataByDate)
