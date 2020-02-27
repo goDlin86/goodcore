@@ -51,7 +51,13 @@ album {
     display: block;
     background-color: #07b1ff;
     font-family: Nexa, sans-serif;
+    transition: opacity 0.3s;
+}
+.album-enter {
     opacity: 0;
+}
+.album-enter-active {
+    opacity: 1;
     transition: opacity 0.3s;
 }
 album a {

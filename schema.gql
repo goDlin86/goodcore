@@ -11,6 +11,5 @@ type AlbumEntry {
 }
 
 type Query {
-  entries: [AlbumEntry],
-  entriesByDate(orderBy: _ts_DESC): [AlbumEntry]
+  entries: [AlbumEntry]
 }
