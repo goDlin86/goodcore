@@ -80,7 +80,6 @@ const Home = () => {
                   <TransitionGroup className="list">
                     {date.albums.map((album, index, allAlbums) => (
                         <CSSTransition
-                          key={index}
                           in={true}
                           timeout={300}
                           classNames="album"

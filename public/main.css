@@ -60,6 +60,7 @@ album {
     transition: opacity 0.3s;
 }
 album a {
+    display: block;
     text-decoration: none;
 }
 album a:hover {
