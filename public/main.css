@@ -36,6 +36,8 @@ date {
     background-color: #FC8BCC;
     padding: 10px;
     padding-bottom: 7px;
+    top: 0;
+    position: sticky;
 }
 date.today {
   background-color: deeppink;

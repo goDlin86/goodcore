@@ -67,6 +67,7 @@ const Home = () => {
               dataLength={data.dates.reduce((count, d) => count + d.albums.length, 0)}
               next={getData}
               hasMore={true}
+              style={{'overflow': 'unset'}}
               scrollThreshold={0.95}
               loader={<p>Loading...</p>}
               endMessage={
