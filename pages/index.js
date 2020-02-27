@@ -84,12 +84,7 @@ const Home = () => {
                           timeout={300}
                           classNames="album"
                         >
-                          <Album album={album} />
-                          <style jsx>{`
-                              .album {
-                                  transition-delay: ${index * 100}ms;
-                              }
-                          `}</style>
+                          <Album album={album} index={index} />
                         </CSSTransition>
                       )
                     )}
