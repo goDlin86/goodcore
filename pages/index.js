@@ -4,7 +4,7 @@ import Head from '../components/head'
 import Album from '../components/album'
 //import { useAlbumEntries } from '../graphql/api'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { CSSTransition } from 'react-transition-group'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 
 function getDataByDate(oldData, newData) {
@@ -77,14 +77,14 @@ const Home = () => {
               {data.dates.map(date => (
                 <div>
                   <date class="today">{date.date}</date>
-                  <div className="list">
+                  <TransitionGroup className="list">
                     {date.albums.map((album, index, allAlbums) => (
                         <CSSTransition
-                          in={true}
+                          key={index}
                           timeout={300}
                           classNames="album"
                         >
-                          <Album album={album} key={index} />
+                          <Album album={album} />
                           <style jsx>{`
                               .album {
                                   transition-delay: ${index * 100}ms;
@@ -93,7 +93,7 @@ const Home = () => {
                         </CSSTransition>
                       )
                     )}
-                  </div>
+                  </TransitionGroup>
                 </div>
                 )
               )}
