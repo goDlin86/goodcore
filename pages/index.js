@@ -76,21 +76,19 @@ const Home = () => {
                 </p>
               }>
               {data.dates.map(date => (
-                <div>
+                <TransitionGroup className="list">
                   <date class="today">{date.date}</date>
-                  <TransitionGroup className="list">
-                    {date.albums.map((album, index, allAlbums) => (
-                        <CSSTransition
-                          in={true}
-                          timeout={300}
-                          classNames="album"
-                        >
-                          <Album album={album} index={index} />
-                        </CSSTransition>
-                      )
-                    )}
-                  </TransitionGroup>
-                </div>
+                  {date.albums.map((album, index, allAlbums) => (
+                      <CSSTransition
+                        in={true}
+                        timeout={300}
+                        classNames="album"
+                      >
+                        <Album album={album} index={index} />
+                      </CSSTransition>
+                    )
+                  )}
+                </TransitionGroup>
                 )
               )}
             </InfiniteScroll>

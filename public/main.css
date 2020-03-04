@@ -31,28 +31,31 @@ h1 {
     color: #6161f5;
     margin: 0 0 10px 0;
 }
-date {
-    font-family: Nexa, sans-serif;
-    background-color: #FC8BCC;
-    padding: 10px;
-    padding-bottom: 7px;
-    top: 0;
-    position: sticky;
-}
-date.today {
-  background-color: deeppink;
-}
 
 .list {
+    font-family: Nexa, sans-serif;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 10px;
     margin-bottom: 20px;
 }
+date {
+    display: inline-block;
+    z-index: 2;
+    background-color: #FC8BCC;
+    padding: 10px;
+    padding-bottom: 7px;
+    top: 0;
+    position: sticky;
+    position: -webkit-sticky;
+    grid-column: 1 / -1;
+}
+date.today {
+  background-color: deeppink;
+}
 album {
     display: block;
     background-color: #07b1ff;
-    font-family: Nexa, sans-serif;
 }
 .album-enter {
     opacity: 0;
