@@ -36,26 +36,27 @@ h1 {
     font-family: Nexa, sans-serif;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 10px;
+    column-gap: 10px;
     margin-bottom: 20px;
 }
 date {
-    display: inline-block;
     z-index: 2;
-    background-color: #FC8BCC;
-    padding: 10px;
-    padding-bottom: 7px;
+    /* background-color: #FC8BCC; */
     top: 0;
     position: sticky;
     position: -webkit-sticky;
     grid-column: 1 / -1;
 }
-date.today {
-  background-color: deeppink;
+.today {
+    display: inline-block;
+    background-color: deeppink;
+    padding: 10px;
+    padding-bottom: 7px;
 }
 album {
     display: block;
     background-color: #07b1ff;
+    border-bottom: 5px solid rgba(255,255,255,0.5);
 }
 .album-enter {
     opacity: 0;

@@ -77,7 +77,7 @@ const Home = () => {
               }>
               {data.dates.map(date => (
                 <TransitionGroup className="list">
-                  <date class="today">{date.date}</date>
+                  <date><div class="today">{date.date}</div></date>
                   {date.albums.map((album, index, allAlbums) => (
                       <CSSTransition
                         in={true}
