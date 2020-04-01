@@ -12,9 +12,9 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "^9.3.0",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
+    "next": "^9.3.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-infinite-scroll-component": "^5.0.4",
     "react-transition-group": "^4.3.0"
   }
