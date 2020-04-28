@@ -52,43 +52,29 @@ class handler(BaseHTTPRequestHandler):
 
             if ('2020' in title) and (('Metalcore' in genre) or ('Deathcore' in genre) or ('Post-Hardcore' in genre)):
               img = [img for img in post['attachments'][0]['photo']['sizes'] if img['type'] == 'x'][0]['url']
-              url = [link for link in post['attachments'] if link['type'] == 'link'][0]['link']['url']
+              links = [link for link in post['attachments'] if link['type'] == 'link']
 
-              if 'Post-Hardcore' in genre:
-                style = 'Post-Hardcore'
-              elif 'Deathcore' in genre:
-                style = 'Deathcore'
-              else:
-                style = 'Metalcore'
+              if len(links) > 0:
+                url = links[0]['link']['url']
+              
+                if 'Post-Hardcore' in genre:
+                  style = 'Post-Hardcore'
+                elif 'Deathcore' in genre:
+                  style = 'Deathcore'
+                else:
+                  style = 'Metalcore'
 
-              posts.append({
-                'title': title,
-                'date': date,
-                'img': img,
-                'country': country,
-                'genre': genre,
-                # 'style': style,
-                'groupid': group,
-                'postid': postid,
-                'url': url
-              })
-
-              # client.query(
-              #   q.create(
-              #     q.collection('AlbumEntry'),
-              #     {'data': {
-              #       'title': title,
-              #       'date': date,
-              #       'img': img,
-              #       'country': country,
-              #       'genre': genre,
-              #       # 'style': style,
-              #       'groupid': group,
-              #       'postid': postid,
-              #       'url': url
-              #     }}
-              #   )
-              # )
+                posts.append({
+                  'title': title,
+                  'date': date,
+                  'img': img,
+                  'country': country,
+                  'genre': genre,
+                  # 'style': style,
+                  'groupid': group,
+                  'postid': postid,
+                  'url': url
+                })
 
     if len(posts) > 0:
       client.query(
