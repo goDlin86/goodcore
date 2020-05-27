@@ -20,6 +20,7 @@ header {
     font-size: 100px;
     font-weight: 700;
     letter-spacing: 5px;
+    text-align: center;
 }
 header .yellow {
     color: #f9f81a;
@@ -30,13 +31,14 @@ h1 {
     font-family: Nexa, sans-serif;
     color: #6161f5;
     margin: 0 0 10px 0;
+    text-align: center;
 }
 
 .list {
     font-family: Nexa, sans-serif;
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    column-gap: 10px;
+    column-gap: 10px; */
     margin-bottom: 20px;
 }
 date {
@@ -45,7 +47,9 @@ date {
     top: 0;
     position: sticky;
     position: -webkit-sticky;
-    grid-column: 1 / -1;
+    /* grid-column: 1 / -1; */
+    display: block;
+    text-align: center;
 }
 .today {
     display: inline-block;
@@ -53,12 +57,18 @@ date {
     padding: 10px;
     padding-bottom: 7px;
 }
+.albumslist {
+    display: flex;
+    justify-content: center;
+}
 album {
     display: block;
     background-color: #07b1ff;
     border-bottom: 5px solid rgba(255,255,255,0.5);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    margin: 0 10px;
+    max-width: 450px;
 }
 .album-enter {
     opacity: 0;
@@ -104,7 +114,10 @@ album h3 {
         font-size: 70px;
         letter-spacing: normal;
     }
-    .list {
+    /* .list {
         grid-template-columns: 1fr;
+    } */
+    .albumslist {
+        flex-direction: column;
     }
 }
