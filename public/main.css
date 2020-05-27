@@ -39,7 +39,7 @@ h1 {
     /* display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     column-gap: 10px; */
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 date {
     z-index: 2;
@@ -59,6 +59,7 @@ date {
 }
 .albumslist {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 album {
@@ -67,8 +68,8 @@ album {
     border-bottom: 5px solid rgba(255,255,255,0.5);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    margin: 0 10px;
-    max-width: 450px;
+    margin: 0 10px 10px 10px;
+    max-width: 400px;
 }
 .album-enter {
     opacity: 0;
@@ -117,7 +118,4 @@ album h3 {
     /* .list {
         grid-template-columns: 1fr;
     } */
-    .albumslist {
-        flex-direction: column;
-    }
 }
