@@ -50,7 +50,7 @@ class handler(BaseHTTPRequestHandler):
 
           if not search['data']:
 
-            if ('2020' in title) and (('Metalcore' in genre) or ('Deathcore' in genre) or ('Post-Hardcore' in genre)):
+            if ('2021' in title) and (('Metalcore' in genre) or ('Deathcore' in genre) or ('Post-Hardcore' in genre)):
               img = [img for img in post['attachments'][0]['photo']['sizes'] if img['type'] == 'x'][0]['url']
               links = [link for link in post['attachments'] if link['type'] == 'link']
 
