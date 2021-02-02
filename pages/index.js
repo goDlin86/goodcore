@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
-//import Link from 'next/link'
 import Head from '../components/head'
 import Album from '../components/album'
-//import { useAlbumEntries } from '../graphql/api'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
@@ -20,14 +18,7 @@ function getDataByDate(oldData, newData) {
 }
 
 const Home = () => {
-  //const { data, errorMessage } = useAlbumEntries()
   const [data, setData] = useState([])
-
-  //useEffect(() => {
-  //   if (!entries.length) {
-  //     setEntries(getEntries(data))
-  //   }
-  // }, [data, entries.length])
 
   useEffect(() => {
      getData()

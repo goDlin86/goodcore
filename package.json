@@ -1,13 +1,8 @@
 {
-  "name": "create-next-example-app",
-  "description": "A Next.js starter app.",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/zeit/now/tree/master/examples/nextjs"
-  },
-  "license": "MIT",
+  "name": "goodcore",
+  "version": "0.1.0",
   "scripts": {
-    "dev": "next",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
