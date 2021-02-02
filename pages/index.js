@@ -22,7 +22,7 @@ function getDataByDate(oldData, newData) {
 const Home = () => {
   const [data, setData] = useState([])
 
-  ReactGA.pageview('')
+  ReactGA.pageview('/')
 
   useEffect(() => {
      getData()
