@@ -25,24 +25,20 @@ const Home = () => {
   ReactGA.pageview('/')
 
   useEffect(() => {
-     getData()
+    getData()
   }, [])
 
   const getData = async () => {
     const res = await fetch('/api/getAlbums', {
       method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-        Accept: 'application/json',
-      },
       body: JSON.stringify({
-        'after': data.after || '',
-        'afterDate': data.afterDate || ''
+        after: data.after || '',
+        afterDate: data.afterDate || ''
       }),
-    });
+    })
     const newData = await res.json()
     const dataByDate = getDataByDate(data, newData)
-    console.log(dataByDate)
+    //console.log(dataByDate)
     setData(dataByDate)
   }
 
