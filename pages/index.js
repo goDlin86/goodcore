@@ -3,7 +3,9 @@ import Head from '../components/head'
 import Album from '../components/album'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import ReactGA from 'react-ga'
 
+ReactGA.initialize('UA-26528518-2')
 
 function getDataByDate(oldData, newData) {
   const oldAlbums = oldData.dates ? oldData.dates.reduce((all, d) => all.concat(d.albums), []) : []
@@ -19,6 +21,8 @@ function getDataByDate(oldData, newData) {
 
 const Home = () => {
   const [data, setData] = useState([])
+
+  ReactGA.pageview('')
 
   useEffect(() => {
      getData()
