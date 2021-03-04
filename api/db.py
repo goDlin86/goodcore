@@ -33,7 +33,7 @@ class handler(BaseHTTPRequestHandler):
 
       for post in remote_wall['items']:
         postid = post['id']
-        date = datetime.fromtimestamp(post['date']).strftime('%m/%d/%Y')
+        date = datetime.fromtimestamp(post['date']).isoformat()
         text = [t for t in post['text'].split('\n') if len(t) > 1]
         if len(text) > 2:
           title = text[0]

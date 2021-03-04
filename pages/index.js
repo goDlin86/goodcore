@@ -3,6 +3,11 @@ import Head from '../components/head'
 import Album from '../components/album'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
+
+import dayjs from 'dayjs'
+import 'dayjs/locale/ru'
+dayjs.locale('ru')
+
 import ReactGA from 'react-ga'
 
 ReactGA.initialize('UA-26528518-2')
@@ -68,7 +73,7 @@ const Home = () => {
               }>
               {data.dates.map(date => (
                 <TransitionGroup className="list">
-                  <date><div class="today">{date.date}</div></date>
+                  <date><div class="today">{dayjs(date.date).format("DD MMM YYYY")}</div></date>
                   <div className="albumslist">
                   {date.albums.map((album, index, allAlbums) => (
                       <CSSTransition

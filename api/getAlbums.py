@@ -22,7 +22,7 @@ class handler(BaseHTTPRequestHandler):
         if len(afterDate) == 0:
             albums = client.query(
                 q.map_(
-                    lambda x: q.get(q.select(1, x)),
+                    lambda _, ref: q.get(ref),
                     q.paginate(
                         q.match(q.index("dateDesc")),
                         size=8
@@ -33,7 +33,7 @@ class handler(BaseHTTPRequestHandler):
             if len(after) > 0:
                 albums = client.query(
                     q.map_(
-                        lambda x: q.get(q.select(1, x)),
+                        lambda _, ref: q.get(ref),
                         q.paginate(
                             q.match(q.index("dateDesc")),
                             size=8,
