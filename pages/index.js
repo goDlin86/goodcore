@@ -5,8 +5,8 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 import dayjs from 'dayjs'
-import 'dayjs/locale/ru'
-dayjs.locale('ru')
+//import 'dayjs/locale/ru'
+//dayjs.locale('ru')
 
 import ReactGA from 'react-ga'
 
