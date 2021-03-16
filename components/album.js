@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Album = ({ album, index }) => (
     <album style={{'transitionDelay': `${ index * .1 }s`}}>
         <a href={'https://vk.com/feed?w=wall' + album.groupid + '_' + album.postid} target="_blank">

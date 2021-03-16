@@ -22,7 +22,7 @@ function getDataByDate(data) {
 }
 
 const Home = () => {
-  //ReactGA.pageview('/')
+  ReactGA.pageview('/')
 
   const { data, error, size, setSize } = useSWRInfinite((pageIndex, previousPageData) => {
       if (previousPageData && !previousPageData.after.length) return null
