@@ -1,83 +1,72 @@
-import React, { useEffect, useState } from 'react'
+import { useSWRInfinite } from 'swr'
 import Head from '../components/head'
 import Album from '../components/album'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
-import dayjs from 'dayjs'
 import ReactGA from 'react-ga'
 
 ReactGA.initialize('UA-26528518-2')
 
-function getDataByDate(oldData, newData) {
-  const oldAlbums = oldData.dates ? oldData.dates.reduce((all, d) => all.concat(d.albums), []) : []
-  const allAlbums = oldAlbums.concat(newData.albums)
-  var dates = allAlbums.map(a => a.date)
+const fetcher = url => fetch(url).then(res => res.json())
+
+function getDataByDate(data) {
+  const albums = data.reduce((all, d) => all.concat(d.albums), [])
+  var dates = albums.map(a => a.date)
   dates = [...new Set(dates)]
   dates = dates.map(date => {
-    return { date, albums: allAlbums.filter(a => a.date === date) }
+    return { date, albums: albums.filter(a => a.date === date) }
   })
 
-  return { 'afterDate': newData.afterDate, 'after': newData.after, dates }
+  return { dates }
 }
 
 const Home = () => {
-  const [data, setData] = useState([])
+  //ReactGA.pageview('/')
 
-  ReactGA.pageview('/')
+  const { data, error, size, setSize } = useSWRInfinite((pageIndex, previousPageData) => {
+      if (previousPageData && !previousPageData.after.length) return null
+      if (pageIndex === 0) return `/api/get`
+      return `/api/get?cursor=${previousPageData.after}`
+    },
+    fetcher
+  )
 
-  useEffect(() => {
-    getData()
-  }, [])
+  const dataByDate = getDataByDate(data ? [].concat(...data) : [])
 
-  const getData = async () => {
-    const res = await fetch('/api/getAlbums', {
-      method: 'POST',
-      body: JSON.stringify({
-        after: data.after || '',
-        afterDate: data.afterDate || ''
-      }),
-    })
-    const newData = await res.json()
-
-    newData.albums.map(a => {
-      a.date = dayjs(a.date).format('DD MMM YYYY')
-      return a
-    })
-
-    const dataByDate = getDataByDate(data, newData)
-    //console.log(dataByDate)
-    setData(dataByDate)
-  }
+  const isLoadingInitialData = !data && !error
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && data && typeof data[size - 1] === "undefined")
+  const isEmpty = data?.[0]?.length === 0
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < 8)
 
   return (
     <div>
       <Head title="goodcore Releases" description="metalcore, deathcore, post-hardcore releases, link for download" />
       
       <header>
-          goo<span class="yellow">d</span>core
+          goo<span className="yellow">d</span>core
       </header>
       <section>
           <h1>Releases</h1>
-          {data.length == 0 ? (
-            <p>Loading...</p>
-          ) : (
-            <InfiniteScroll
-              dataLength={data.dates.reduce((count, d) => count + d.albums.length, 0)}
-              next={getData}
-              hasMore={true}
-              style={{'overflow': 'unset'}}
-              scrollThreshold={0.95}
-              loader={<p>Loading...</p>}
-              endMessage={
-                <p style={{textAlign: 'center'}}>
-                  <b>Больше нет</b>
-                </p>
-              }>
-              {data.dates.map(date => (
-                <TransitionGroup className="list">
-                  <date><div class="today">{date.date}</div></date>
-                  <div className="albumslist">
+          <InfiniteScroll
+            dataLength={dataByDate.dates.reduce((count, d) => count + d.albums.length, 0)}
+            next={() => setSize(size + 1)}
+            hasMore={!isLoadingMore || !isReachingEnd}
+            style={{'overflow': 'unset'}}
+            scrollThreshold={0.95}
+            loader={<p>Loading...</p>}
+            endMessage={
+              <p style={{textAlign: 'center'}}>
+                <b>Больше нет</b>
+              </p>
+            }>
+            {dataByDate.dates.map(date => (
+              <TransitionGroup className="list">
+                <date><div className="today">{date.date}</div></date>
+                <div className="albumslist">
                   {date.albums.map((album, index, allAlbums) => (
                       <CSSTransition
                         in={true}
@@ -88,12 +77,11 @@ const Home = () => {
                       </CSSTransition>
                     )
                   )}
-                  </div>
-                </TransitionGroup>
-                )
-              )}
-            </InfiniteScroll>
-          )}
+                </div>
+              </TransitionGroup>
+              )
+            )}
+          </InfiniteScroll>
       </section>  
     </div>
   )
