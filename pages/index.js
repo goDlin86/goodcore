@@ -2,7 +2,6 @@ import { useSWRInfinite } from 'swr'
 import Head from '../components/head'
 import Album from '../components/album'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 import ReactGA from 'react-ga'
 
@@ -14,9 +13,7 @@ function getDataByDate(data) {
   const albums = data.reduce((all, d) => all.concat(d.albums), [])
   var dates = albums.map(a => a.date)
   dates = [...new Set(dates)]
-  dates = dates.map(date => {
-    return { date, albums: albums.filter(a => a.date === date) }
-  })
+  dates = dates.map(date => ({ date, albums: albums.filter(a => a.date === date) }))
 
   return { dates }
 }
@@ -64,21 +61,15 @@ const Home = () => {
               </p>
             }>
             {dataByDate.dates.map(date => (
-              <TransitionGroup className="list">
+              <div className="list">
                 <date><div className="today">{date.date}</div></date>
                 <div className="albumslist">
                   {date.albums.map((album, index, allAlbums) => (
-                      <CSSTransition
-                        in={true}
-                        timeout={300}
-                        classNames="album"
-                      >
-                        <Album album={album} index={index} />
-                      </CSSTransition>
+                      <Album album={album} key={index} />
                     )
                   )}
                 </div>
-              </TransitionGroup>
+              </div>
               )
             )}
           </InfiniteScroll>

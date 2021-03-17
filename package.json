@@ -14,7 +14,6 @@
     "react-dom": "^17.0.0",
     "react-ga": "^3.3.0",
     "react-infinite-scroll-component": "^6.0.0",
-    "react-transition-group": "^4.4.1",
     "swr": "^0.5.3"
   }
 }
