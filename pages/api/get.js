@@ -6,32 +6,21 @@ export default async (req, res) => {
 
     const client = new faunadb.Client({ secret: process.env.DBSECRET })
     
-    let data = {}
-    if (cursor) {
-        const after = cursor.split("_")
-        data = await client.query(
-            q.Map(
-                q.Paginate(
-                    q.Match(q.Index("dateDesc")), 
-                    { 
-                        size: 8,
-                        after: [ after[0], q.Ref(q.Collection("AlbumEntry"), after[1]), q.Ref(q.Collection("AlbumEntry"), after[1]) ]
-                    }
-                ),
-                q.Lambda((x, ref) => q.Get(ref))
-            )
+    const a = cursor ? cursor.split('_') : []
+    const afterQ = a.length === 2 ? [a[0], q.Ref(q.Collection('AlbumEntry'), a[1]), q.Ref(q.Collection('AlbumEntry'), a[1])] : []
+
+    const data = await client.query(
+        q.Map(
+            q.Paginate(
+                q.Match(q.Index("dateDesc")), 
+                { 
+                    size: 8,
+                    after: afterQ
+                }
+            ),
+            q.Lambda((x, ref) => q.Get(ref))
         )
-    }
-    else
-        data = await client.query(
-            q.Map(
-                q.Paginate(
-                    q.Match(q.Index("dateDesc")), 
-                    { size: 8 }
-                ),
-                q.Lambda((x, ref) => q.Get(ref))
-            )
-        )
+    )
 
     let albums = data['data'].map(a => a['data'])
     albums = albums.map(a => {
