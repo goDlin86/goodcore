@@ -18,7 +18,7 @@ function getDataByDate(data) {
   return { dates }
 }
 
-const Home = ({ initialData }) => {
+const Home = () => {
   ReactGA.pageview('/')
 
   const { data, error, size, setSize } = useSWRInfinite((pageIndex, previousPageData) => {
@@ -26,8 +26,7 @@ const Home = ({ initialData }) => {
       if (pageIndex === 0) return `/api/get`
       return `/api/get?cursor=${previousPageData.after}`
     },
-    fetcher,
-    { initialData }
+    fetcher
   )
 
   const dataByDate = getDataByDate(data ? [].concat(...data) : [])
@@ -77,8 +76,3 @@ const Home = ({ initialData }) => {
 }
 
 export default Home
-
-export async function getServerSideProps() {
-  const data = await fetcher('https://goodcore.vercel.app/api/get')
-  return { props: { initialData: data } }
-}
