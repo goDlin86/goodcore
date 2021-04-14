@@ -18,7 +18,7 @@ function getDataByDate(data) {
   return { dates }
 }
 
-const Home = () => {
+const Home = ({ initialData }) => {
   ReactGA.pageview('/')
 
   const { data, error, size, setSize } = useSWRInfinite((pageIndex, previousPageData) => {
@@ -26,7 +26,8 @@ const Home = () => {
       if (pageIndex === 0) return `/api/get`
       return `/api/get?cursor=${previousPageData.after}`
     },
-    fetcher
+    fetcher,
+    { initialData }
   )
 
   const dataByDate = getDataByDate(data ? [].concat(...data) : [])
@@ -44,38 +45,40 @@ const Home = () => {
       <Head title="goodcore Releases" description="metalcore, deathcore, post-hardcore releases, link for download" />
       
       <header>
-          goo<span className="yellow">d</span>core
+        goo<span className="yellow">d</span>core
       </header>
       <section>
-          <h1>Releases</h1>
-          <InfiniteScroll
-            dataLength={dataByDate.dates.reduce((count, d) => count + d.albums.length, 0)}
-            next={() => setSize(size + 1)}
-            hasMore={!isLoadingMore || !isReachingEnd}
-            style={{'overflow': 'unset'}}
-            scrollThreshold={0.95}
-            loader={<p>Loading...</p>}
-            endMessage={
-              <p style={{textAlign: 'center'}}>
-                <b>Больше нет</b>
-              </p>
-            }>
-            {dataByDate.dates.map(date => (
-              <div className="list">
-                <date><div className="today">{date.date}</div></date>
-                <div className="albumslist">
-                  {date.albums.map((album, index, allAlbums) => (
-                      <Album album={album} key={index} />
-                    )
-                  )}
-                </div>
+        <h1>Releases</h1>
+        <InfiniteScroll
+          dataLength={dataByDate.dates.reduce((count, d) => count + d.albums.length, 0)}
+          next={() => setSize(size + 1)}
+          hasMore={!isLoadingMore || !isReachingEnd}
+          style={{'overflow': 'unset'}}
+          scrollThreshold={0.95}
+          loader={<p>Loading...</p>}
+          endMessage={<p>Больше нет</p>}
+          >
+          {dataByDate.dates.map(date => (
+            <div className="list">
+              <date><div className="today">{date.date}</div></date>
+              <div className="albumslist">
+                {date.albums.map((album, index) => (
+                    <Album album={album} key={index} />
+                  )
+                )}
               </div>
-              )
-            )}
-          </InfiniteScroll>
+            </div>
+            )
+          )}
+        </InfiniteScroll>
       </section>  
     </div>
   )
 }
 
 export default Home
+
+export async function getServerSideProps() {
+  const data = await fetcher(`/api/get`)
+  return { props: { initialData: data } }
+}
