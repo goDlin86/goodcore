@@ -79,6 +79,6 @@ const Home = ({ initialData }) => {
 export default Home
 
 export async function getServerSideProps() {
-  const data = await fetcher('/api/get')
+  const data = await fetcher('https://goodcore.vercel.app/api/get')
   return { props: { initialData: data } }
 }
