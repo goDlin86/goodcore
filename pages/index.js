@@ -27,12 +27,13 @@ const Home = ({ initialData }) => {
   ReactGA.pageview('/')
 
   const { data, error, size, setSize, isValidating } = useSWRInfinite((pageIndex, previousPageData) => {
-      if (previousPageData && !previousPageData.after.length) return null
-      if (pageIndex === 0) return `/api/get`
-      return `/api/get?cursor=${previousPageData.after}`
+      const prevOrInitialData = previousPageData || initialData
+      if (prevOrInitialData && !prevOrInitialData.after.length) return null
+      if (pageIndex === 0) return '/api/get'
+      return `/api/get?cursor=${prevOrInitialData.after}`
     },
     fetcher,
-    { revalidateOnFocus: false, initialData }
+    { revalidateOnFocus: false, initialData: initialData && [initialData] }
   )
 
   const dataByDate = getDataByDate(data ? [].concat(...data) : [])
@@ -81,9 +82,10 @@ const Home = ({ initialData }) => {
   )
 }
 
-// Home.getInitialProps = async () => {
-//   const data = await fetcher('/api/get')
-//   return { props: { initialData: data } }
-// }
+export async function getServerSideProps() {
+  const baseUrl = 'http://goodcore.vercel.app'//http://localhost:3000'
+  const data = await fetcher(baseUrl + '/api/get')
+  return { props: { initialData: data } }
+}
 
 export default Home
