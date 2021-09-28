@@ -33,7 +33,7 @@ const Home = ({ fallbackData }) => {
       return `/api/get?cursor=${prevOrInitialData.after}`
     },
     fetcher,
-    { revalidateOnFocus: false, fallbackData }
+    { revalidateOnFocus: false, fallbackData: [fallbackData] }
   )
 
   const dataByDate = getDataByDate(data ? [].concat(...data) : [])
