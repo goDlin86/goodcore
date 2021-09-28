@@ -1,4 +1,4 @@
-import { useSWRInfinite } from 'swr'
+import useSWRInfinite from 'swr/infinite'
 import { useRef, useEffect } from 'react'
 
 import Head from '../components/head'
