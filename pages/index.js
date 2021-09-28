@@ -20,7 +20,7 @@ function getDataByDate(data) {
   return { dates }
 }
 
-const Home = ({ initialData }) => {
+const Home = ({ fallbackData }) => {
   const ref = useRef()
   const isVisible = useOnScreen(ref)
 
@@ -33,7 +33,7 @@ const Home = ({ initialData }) => {
       return `/api/get?cursor=${prevOrInitialData.after}`
     },
     fetcher,
-    { revalidateOnFocus: false, initialData: initialData && [initialData] }
+    { revalidateOnFocus: false, fallbackData }
   )
 
   const dataByDate = getDataByDate(data ? [].concat(...data) : [])
@@ -85,7 +85,7 @@ const Home = ({ initialData }) => {
 export async function getServerSideProps() {
   const baseUrl = 'https://goodcore.vercel.app'//http://localhost:3000'
   const data = await fetcher(baseUrl + '/api/get')
-  return { props: { initialData: data } }
+  return { props: { fallbackData: data } }
 }
 
 export default Home
