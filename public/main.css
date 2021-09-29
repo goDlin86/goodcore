@@ -79,10 +79,12 @@ album {
 album a {
     display: block;
     text-decoration: none;
-}
-album a:hover {
-    opacity: 0.7;
     transition: opacity 0.3s;
+}
+@media (hover: hover) {
+    album a:hover {
+        opacity: 0.7;
+    }
 }
 album img {
     display: block;
