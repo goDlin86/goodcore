@@ -1,0 +1,15 @@
+name: db
+
+on:
+  schedule:
+    - cron:  '0 12 * * *'
+
+jobs:
+  db-get:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: send to db
+      uses: wei/curl@v1
+      with:
+        args: 'https://goodcore.vercel.app/api/db'
