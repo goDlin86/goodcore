@@ -5,6 +5,8 @@ import Head from '../components/head'
 import Album from '../components/album'
 import useOnScreen from '../hooks/useOnScreen'
 
+import dayjs from 'dayjs'
+
 import ReactGA from 'react-ga'
 
 ReactGA.initialize('UA-26528518-2')
@@ -24,14 +26,16 @@ const Home = ({ fallbackData }) => {
   const ref = useRef()
   const isVisible = useOnScreen(ref)
 
+  const dateStart = dayjs().endOf('month').toISOString().slice(0, -5)
+
   ReactGA.pageview('/')
 
   const { data, error, size, setSize, isValidating } = useSWRInfinite((pageIndex, previousPageData) => {
       const prevOrInitialData = previousPageData || fallbackData
       console.log(pageIndex)
       if (prevOrInitialData && !prevOrInitialData.after.length) return null
-      if (pageIndex === 0) return '/api/get'
-      return `/api/get?cursor=${prevOrInitialData.after}`
+      if (pageIndex === 0) return `/api/get?dateStart=${dateStart}`
+      return `/api/get?dateStart=${dateStart}&cursor=${prevOrInitialData.after}`
     },
     fetcher,
     { revalidateOnFocus: false, fallbackData: fallbackData && [fallbackData] }
@@ -85,7 +89,8 @@ const Home = ({ fallbackData }) => {
 
 export async function getServerSideProps() {
   const baseUrl = 'https://goodcore.vercel.app'
-  const data = await fetcher(baseUrl + '/api/get')
+  const dateStart = dayjs().endOf('month').toISOString().slice(0, -5)
+  const data = await fetcher(baseUrl + `/api/get?dateStart=${dateStart}`)
   return { props: { fallbackData: data } }
 }
 

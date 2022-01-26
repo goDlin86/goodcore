@@ -1,0 +1,30 @@
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+.header {
+    margin: 20px;
+    font-size: 40px;
+    text-align: center;
+}
+.header .button {
+    display: inline-block;
+    padding: 20px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: 0.3s opacity;
+}
+.header .button:hover {
+    opacity: 1;
+}
+.weekday {
+    text-align: center;
+}
+.day {
+    background-color: black;
+    padding: 10px;
+}
+.day.disable {
+    opacity: 0.2;
+}
