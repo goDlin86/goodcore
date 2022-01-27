@@ -4,9 +4,15 @@
     gap: 10px;
 }
 .header {
-    margin: 20px;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 10px;
+    margin-bottom: 20px;
     font-size: 40px;
     text-align: center;
+    background-color: #1c1c21;
+    color: deeppink;
+    z-index: 5;
 }
 .header .button {
     display: inline-block;
@@ -20,11 +26,85 @@
 }
 .weekday {
     text-align: center;
+    color: #aaa;
 }
 .day {
+    position: relative;
     background-color: black;
     padding: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    transition: 0.3s ease-in transform;
+}
+.day:not(.empty, .disable) {
+    cursor: zoom-in;
+}
+.day.hovered {
+    cursor: zoom-out;
+    transform: scale(2);
+    z-index: 6;
+}
+.day.hovered.left {
+    transform-origin: left;
+}
+.day.hovered.right {
+    transform-origin: right;
 }
 .day.disable {
-    opacity: 0.2;
+    opacity: 0.1;
+}
+.day.empty {
+    opacity: 0.3;
+}
+.day .date {
+    position: relative;
+    display: inline-block;
+    background-color: deeppink;
+    padding: 5px;
+    padding-bottom: 2px;
+    border-radius: 5px;
+    z-index: 3;
+}
+.day .album {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.day .album img {
+    max-width: 100%;
+}
+.day .album .description {
+    position: absolute;
+    bottom: 5px;
+    width: 100%;
+    text-align: center;
+}
+.day .album a {
+    text-decoration: none;
+    color: #f2f2f2;
+}
+.day .album h2 {
+    background-color: rgba(0,0,0,0.4);
+    margin: 0;
+    font-size: 20px;
+}
+.day .album .genre {
+    display: inline-block;
+    padding: 5px;
+    padding-bottom: 2px;
+    margin-left: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    background-color: #6161f5;
+}
+.day .album .country {
+    display: inline-block;
+    padding: 5px;
+    padding-bottom: 2px;
+    margin: 5px;
+    font-size: 14px;
+    border-radius: 5px;
+    background-color: #07b1ff;
 }

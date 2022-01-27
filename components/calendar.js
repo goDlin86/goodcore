@@ -10,6 +10,7 @@ dayjs.locale({
 
 import MonthHeader from './monthheader'
 import WeekDays from './weekdays'
+import DayView from './dayView'
 
 import styles from '../styles/Calendar.module.css'
 
@@ -27,7 +28,7 @@ const Calendar = () => {
     const dateStart = date.endOf('month').toISOString().slice(0, -5)
     const dateEnd = date.startOf('month').toISOString().slice(0, -5)
 
-    const res = await fetch(`/api/get?dateStart=${dateStart}&dateEnd=${dateEnd}`)
+    const res = await fetch(`/api/getMonth?dateStart=${dateStart}&dateEnd=${dateEnd}`)
     const data = await res.json()
 
     const startMonth = date.startOf('month')
@@ -53,12 +54,7 @@ const Calendar = () => {
       <MonthHeader date={date} changeDate={changeDate} />
       <div class={styles.calendar}>
         <WeekDays />
-        {days.map(day => (
-          <div class={day.date.month() !== date.month() ? `${styles.day} ${styles.disable}` : styles.day}>
-            {day.date.date()}
-            {day.albums.map(a => <div>{a.title}</div>)}
-          </div>
-        ))}
+        {days.map(day => <DayView day={day} month={date.month()} />)}
       </div>
     </>
   )

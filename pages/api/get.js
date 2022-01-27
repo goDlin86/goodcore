@@ -2,7 +2,7 @@ import faunadb, { query as q } from 'faunadb'
 import dayjs from 'dayjs'
 
 export default async (req, res) => {
-    const { dateStart, dateEnd, cursor } = req.query
+    const { cursor } = req.query
 
     const client = new faunadb.Client({ secret: process.env.DBSECRET })
     
@@ -12,7 +12,7 @@ export default async (req, res) => {
     const data = await client.query(
         q.Map(
             q.Paginate(
-                q.Range(q.Match(q.Index("dateDesc")), dateStart || '', dateEnd || ''),
+                q.Match(q.Index("dateDesc")),
                 { 
                     size: 8,
                     after: afterQ
