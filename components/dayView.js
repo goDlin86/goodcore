@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import AlbumView from './albumView'
+import AlbumsView from './albumsView'
 
 import styles from '../styles/Calendar.module.css'
 
@@ -28,8 +28,10 @@ const DayView = ({ day, month }) => {
     <div class={isActive ? `${classList} ${styles.hovered}` : classList} onClick={click}>
       <div class={day.albums.length > 0 && styles.date}>{day.date.date()}</div>
 
-      {day.albums.length > 0 && <AlbumView album={day.albums[0]} />}
+      {day.albums.length > 0 && <AlbumsView albums={day.albums} />}
       {/* {day.albums.map(a => <div>{a.title}</div>)} */}
+
+      {day.albums.length > 1 && <div class={styles.count}>{day.albums.length}</div>}
     </div>
   )
 }

@@ -1,7 +1,8 @@
 .calendar {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, minmax(30px, 1fr));
     gap: 10px;
+    direction: rtl;
 }
 .header {
     position: sticky;
@@ -24,6 +25,12 @@
 .header .button:hover {
     opacity: 1;
 }
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(30px, 1fr));
+    gap: 10px;
+    margin-bottom: 10px;
+}
 .weekday {
     text-align: center;
     color: #aaa;
@@ -36,6 +43,7 @@
     overflow: hidden;
     aspect-ratio: 1;
     transition: 0.3s ease-in transform;
+    direction: ltr;
 }
 .day:not(.empty, .disable) {
     cursor: zoom-in;
@@ -67,13 +75,7 @@
     z-index: 3;
 }
 .day .album {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-.day .album img {
-    max-width: 100%;
+    position: relative;
 }
 .day .album .description {
     position: absolute;
@@ -95,9 +97,12 @@
     padding: 5px;
     padding-bottom: 2px;
     margin-left: 5px;
+    margin-top: 5px;
     font-size: 14px;
     border-radius: 5px;
     background-color: #6161f5;
+    color: rgba(0,0,0,0.6);
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 .day .album .country {
     display: inline-block;
@@ -107,4 +112,47 @@
     font-size: 14px;
     border-radius: 5px;
     background-color: #07b1ff;
+    color: rgba(0,0,0,0.6);
+}
+.day .count {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    padding-bottom: 2px;
+    border-radius: 5px;
+    background-color: #eee;
+    color: #222;
+    z-index: 2;
+}
+
+
+.albums_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.albums_container .button {
+    position: absolute;
+    top: 30%;
+    font-size: 60px;
+    -webkit-text-stroke: 2px black;
+    padding: 5px;
+    cursor: pointer;
+    z-index: 2;
+}
+.albums_container .button.right {
+    right: 0;
+}
+.albums_container .button.invisible {
+    display: none;
+}
+.albums {
+    position: absolute;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    transition: 0.3s left;
 }

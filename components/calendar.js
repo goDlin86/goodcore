@@ -37,12 +37,11 @@ const Calendar = () => {
 
     for (let i = 0; i < 42; i++) {
       const curDate = startMonth.add(i - startMonth.day() + 1, 'day')
-      const item = {date: curDate, albums: []}
-      item.albums = data.albums.filter(a => curDate.format('DD MMM YYYY') === a.date)
+      const item = {date: curDate, albums: data.albums.filter(a => curDate.format('DD MMM YYYY') === a.date)}
       array.push(item)
     }
 
-    setDays(array)
+    setDays(array.reverse())
   }
 
   const changeDate = (i) => {
@@ -52,8 +51,8 @@ const Calendar = () => {
   return (
     <>
       <MonthHeader date={date} changeDate={changeDate} />
+      <WeekDays />
       <div class={styles.calendar}>
-        <WeekDays />
         {days.map(day => <DayView day={day} month={date.month()} />)}
       </div>
     </>
