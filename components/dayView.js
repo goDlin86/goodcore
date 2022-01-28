@@ -27,11 +27,7 @@ const DayView = ({ day, month }) => {
   return (
     <div class={isActive ? `${classList} ${styles.hovered}` : classList} onClick={click}>
       <div class={day.albums.length > 0 && styles.date}>{day.date.date()}</div>
-
       {day.albums.length > 0 && <AlbumsView albums={day.albums} />}
-      {/* {day.albums.map(a => <div>{a.title}</div>)} */}
-
-      {day.albums.length > 1 && <div class={styles.count}>{day.albums.length}</div>}
     </div>
   )
 }

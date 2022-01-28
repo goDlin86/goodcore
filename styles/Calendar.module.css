@@ -91,6 +91,10 @@
     background-color: rgba(0,0,0,0.4);
     margin: 0;
     font-size: 20px;
+    transition: 0.3s ease-in background-color;
+}
+.day .album h2:hover {
+    background-color: rgba(0,0,0,0.9);
 }
 .day .album .genre {
     display: inline-block;
@@ -114,17 +118,6 @@
     background-color: #07b1ff;
     color: rgba(0,0,0,0.6);
 }
-.day .count {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px;
-    padding-bottom: 2px;
-    border-radius: 5px;
-    background-color: #eee;
-    color: #222;
-    z-index: 2;
-}
 
 
 .albums_container {
@@ -134,6 +127,21 @@
     right: 0;
     bottom: 0;
 }
+.albums_container .count {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    padding-bottom: 2px;
+    border-radius: 5px;
+    background-color: #eee;
+    color: #222;
+    z-index: 1;
+}
+.albums_container .count span {
+    font-size: 14px;
+    color: #777;
+}
 .albums_container .button {
     position: absolute;
     top: 30%;
@@ -141,7 +149,12 @@
     -webkit-text-stroke: 2px black;
     padding: 5px;
     cursor: pointer;
+    opacity: 0.5;
+    transition: 0.3s opacity;
     z-index: 2;
+}
+.albums_container .button:hover {
+    opacity: 1;
 }
 .albums_container .button.right {
     right: 0;
