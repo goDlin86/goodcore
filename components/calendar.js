@@ -37,7 +37,7 @@ const Calendar = () => {
 
     for (let i = 0; i < 42; i++) {
       const curDate = startMonth.add(i - startMonth.day() + 1, 'day')
-      const item = {date: curDate, albums: data.albums.filter(a => curDate.format('DD MMM YYYY') === a.date)}
+      const item = {date: curDate, albums: data.albums.filter(a => curDate.format('DD MMM YYYY') === a.date).sort(() => 0.5 - Math.random())}
       array.push(item)
     }
 
