@@ -13,10 +13,6 @@ const DayView = ({ day, month }) => {
     classList += styles.disable
   else if(day.albums.length === 0 )
     classList += styles.empty
-  else if (day.date.day() === 1)
-    classList += styles.left
-  else if (day.date.day() === 0)
-    classList += styles.right
 
   const click = () => {
     if (classList.includes(styles.disable) || classList.includes(styles.empty))

@@ -53,10 +53,10 @@
     transform: scale(2);
     z-index: 6;
 }
-.day.hovered.left {
+.day:nth-child(7n) {
     transform-origin: left;
 }
-.day.hovered.right {
+.day:nth-child(7n-6) {
     transform-origin: right;
 }
 .day.disable {
@@ -179,5 +179,11 @@
     }
     .calendar {
         grid-template-columns: repeat(2, minmax(30px, 1fr));
+    }
+    .day:nth-child(2n) {
+        transform-origin: left;
+    }
+    .day:nth-child(2n-1) {
+        transform-origin: right;
     }
 }
