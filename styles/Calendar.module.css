@@ -169,3 +169,15 @@
     flex-direction: row;
     transition: 0.3s left;
 }
+
+@media only screen and (max-width: 768px) {
+    .header {
+        font-size: 32px;
+    }
+    .weekdays {
+        display: none;
+    }
+    .calendar {
+        grid-template-columns: repeat(2, minmax(30px, 1fr));
+    }
+}

@@ -27,7 +27,10 @@ const AlbumsView = ({ albums }) => {
     e.stopPropagation()
   }
 
-  window.addEventListener('resize', () => setWidth(ref.current.clientWidth))
+  window.addEventListener('resize', () => {
+    setWidth(ref.current.clientWidth)
+    setLeft(-(cur - 1) * ref.current.clientWidth)
+  })
 
   return (
     <div class={styles.albums_container} ref={ref}>
