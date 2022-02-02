@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import AlbumsView from './albumsView'
 
@@ -13,6 +13,8 @@ const DayView = ({ day, month }) => {
     classList += styles.disable
   else if(day.albums.length === 0 )
     classList += styles.empty
+
+  useEffect(() => setActive(false), [month])
 
   const click = () => {
     if (classList.includes(styles.disable) || classList.includes(styles.empty))

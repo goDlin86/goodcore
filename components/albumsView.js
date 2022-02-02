@@ -37,7 +37,7 @@ const AlbumsView = ({ albums }) => {
       {albums.length > 1 && <div class={styles.count}><span>{cur}</span>{'\\' + albums.length}</div>}
       <div class={left === 0 ? `${styles.button} ${styles.invisible}` : styles.button} onClick={prev}>&#60;</div>
       <div class={left === -(albums.length - 1) * width ? `${styles.button} ${styles.right} ${styles.invisible}` : `${styles.button} ${styles.right}`} onClick={next}>&#62;</div>
-      <div class={styles.albums} style={{left: left + 'px'}}>
+      <div class={styles.albums} style={{transform: 'translate(' + left + 'px)'}}>
         {albums.map(album => <AlbumView album={album} width={width} />)}
       </div>
     </div>
