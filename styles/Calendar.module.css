@@ -97,7 +97,7 @@
 .day .album h2:hover {
     background-color: rgba(0,0,0,0.9);
 }
-.day .album .genre {
+.day .album .genre, .day .album .country {
     display: inline-block;
     padding: 5px;
     padding-bottom: 2px;
@@ -107,19 +107,11 @@
     border-radius: 5px;
     background-color: #6161f5;
     color: rgba(0,0,0,0.6);
-    box-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 .day .album .country {
-    display: inline-block;
-    padding: 5px;
-    padding-bottom: 2px;
-    margin: 5px;
-    font-size: 14px;
-    border-radius: 5px;
+    margin-bottom: 5px;
     background-color: #07b1ff;
-    color: rgba(0,0,0,0.6);
 }
-
 
 .albums_container {
     position: absolute;
@@ -183,5 +175,12 @@
     }
     .day:nth-child(2n-1) {
         transform-origin: right;
+    }
+
+    .day .album h2 {
+        font-size: 16px;
+    }
+    .day .album .genre, .day .album .country {
+        font-size: 10px;
     }
 }
