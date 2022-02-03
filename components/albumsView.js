@@ -10,19 +10,18 @@ const AlbumsView = ({ albums }) => {
   const [width, setWidth] = useState(0)
   const ref = useRef(null)
 
-  useEffect(() => {
-    const resizeListener = () => {
-      setWidth(ref.current.clientWidth)
-      setLeft(-(cur - 1) * ref.current.clientWidth)
-    }
+  const resizeListener = () => setWidth(ref.current.clientWidth)
 
+  useEffect(() => {
     resizeListener()
     window.addEventListener('resize', resizeListener)
 
-    return () => {
-      window.removeEventListener('resize', resizeListener);
-    }
+    return () => window.removeEventListener('resize', resizeListener)
   }, [])
+
+  useEffect(() => {
+    setLeft(-(cur - 1) * width)
+  }, [width])
 
   useEffect(() => {
     setCur(1)
@@ -30,12 +29,12 @@ const AlbumsView = ({ albums }) => {
   }, [albums])
 
   const next = (e) => {
-    setLeft(left - ref.current.clientWidth)
+    setLeft(left - width)
     setCur(++cur)
     e.stopPropagation()
   }
   const prev = (e) => {
-    setLeft(left + ref.current.clientWidth)
+    setLeft(left + width)
     setCur(--cur)
     e.stopPropagation()
   }
@@ -43,8 +42,8 @@ const AlbumsView = ({ albums }) => {
   return (
     <div class={styles.albums_container} ref={ref}>
       {albums.length > 1 && <div class={styles.count}><span>{cur}</span>{'\\' + albums.length}</div>}
-      <div class={left === 0 ? `${styles.button} ${styles.invisible}` : styles.button} onClick={prev}>&#60;</div>
-      <div class={left === -(albums.length - 1) * width ? `${styles.button} ${styles.right} ${styles.invisible}` : `${styles.button} ${styles.right}`} onClick={next}>&#62;</div>
+      <div class={cur === 1 ? `${styles.button} ${styles.invisible}` : styles.button} onClick={prev}>&#60;</div>
+      <div class={cur === albums.length ? `${styles.button} ${styles.right} ${styles.invisible}` : `${styles.button} ${styles.right}`} onClick={next}>&#62;</div>
       <div class={styles.albums} style={{transform: 'translate(' + left + 'px)'}}>
         {albums.map(album => <AlbumView album={album} width={width} />)}
       </div>
