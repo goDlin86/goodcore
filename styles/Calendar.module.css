@@ -180,8 +180,11 @@
     .day .album .description {
         bottom: 8px;
     }
-    .day .album h2 {
+    .day .album h2, .day .date, .albums_container .count {
         font-size: 16px;
+    }
+    .albums_container .count span {
+        font-size: 10px;
     }
     .day .album .genre, .day .album .country {
         margin-bottom: 0;
