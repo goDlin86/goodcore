@@ -8,12 +8,25 @@ const AlbumsView = ({ albums }) => {
   const [cur, setCur] = useState(1)
   const [left, setLeft] = useState(0)
   const [width, setWidth] = useState(0)
-  const ref = useRef()
+  const ref = useRef(null)
+
+  useEffect(() => {
+    const resizeListener = () => {
+      setWidth(ref.current.clientWidth)
+      setLeft(-(cur - 1) * ref.current.clientWidth)
+    }
+
+    resizeListener()
+    window.addEventListener('resize', resizeListener)
+
+    return () => {
+      window.removeEventListener('resize', resizeListener);
+    }
+  }, [])
 
   useEffect(() => {
     setCur(1)
     setLeft(0)
-    setWidth(ref.current.clientWidth)
   }, [albums])
 
   const next = (e) => {
@@ -26,11 +39,6 @@ const AlbumsView = ({ albums }) => {
     setCur(--cur)
     e.stopPropagation()
   }
-
-  window.addEventListener('resize', () => {
-    setWidth(ref.current.clientWidth)
-    setLeft(-(cur - 1) * ref.current.clientWidth)
-  })
 
   return (
     <div class={styles.albums_container} ref={ref}>

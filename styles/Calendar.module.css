@@ -85,13 +85,14 @@
     text-align: center;
 }
 .day .album a {
+    display: block;
+    margin-bottom: 3px;
     text-decoration: none;
     color: #f2f2f2;
 }
 .day .album h2 {
     background-color: rgba(0,0,0,0.4);
     margin: 0;
-    margin-bottom: 3px;
     font-size: 20px;
     transition: 0.3s ease-in background-color;
 }
@@ -176,11 +177,14 @@
         transform-origin: right;
     }
 
+    .day .album .description {
+        bottom: 8px;
+    }
     .day .album h2 {
         font-size: 16px;
     }
     .day .album .genre, .day .album .country {
-        margin-bottom: 2px;
+        margin-bottom: 0;
         font-size: 10px;
     }
 }
