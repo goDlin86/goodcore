@@ -1,10 +1,12 @@
-import { useRef, useEffect } from 'react'
+import ReactGA from 'react-ga'
 
 import Head from '../../components/head'
 import Calendar from '../../components/calendar'
 
+ReactGA.initialize('UA-26528518-2')
 
 const Home = () => {
+  ReactGA.pageview('/calendar')
 
   return (
     <>
