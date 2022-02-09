@@ -6,7 +6,7 @@ import Calendar from '../../components/calendar'
 ReactGA.initialize('UA-26528518-2')
 
 const Home = () => {
-  ReactGA.pageview('/calendar')
+  ReactGA.pageview('calendar')
 
   return (
     <>
