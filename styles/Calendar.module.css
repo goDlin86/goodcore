@@ -109,6 +109,9 @@
     background-color: #6161f5;
     color: rgba(0,0,0,0.6);
 }
+.day .album .genre.post_hardcore {
+    background-color: #ff4c07;
+}
 .day .album .country {
     background-color: #07b1ff;
 }
@@ -169,6 +172,10 @@
     }
     .calendar {
         grid-template-columns: repeat(2, minmax(30px, 1fr));
+        direction: ltr;
+    }
+    .day.disable, .day.empty {
+        display: none;
     }
     .day:nth-child(2n) {
         transform-origin: left;
