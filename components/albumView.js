@@ -1,9 +1,9 @@
 import styles from '../styles/Calendar.module.css'
 
-const AlbumView = ({ album, width }) => (
+const AlbumView = ({ album, width, show }) => (
   <div class={styles.album}>
     <img src={album.img} style={{maxWidth: width + 'px'}} />
-    <div class={styles.description}>
+    <div class={show ? `${styles.description} ${styles.invisible}` : styles.description}>
       <a href={'https://vk.com/feed?w=wall' + album.groupid + '_' + album.postid} target='_blank' onClick={e => e.stopPropagation()}>
         <h2>{album.title}</h2>
       </a>

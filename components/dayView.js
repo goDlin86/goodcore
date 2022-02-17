@@ -24,8 +24,10 @@ const DayView = ({ day, month }) => {
 
   return (
     <div class={isActive ? `${classList} ${styles.hovered}` : classList} onClick={click}>
-      <div class={day.albums.length > 0 && styles.date}>{day.date.date()}</div>
-      {day.albums.length > 0 && <AlbumsView albums={day.albums} />}
+      {day.albums.length > 0 ? 
+        <AlbumsView albums={day.albums} day={day.date.date()} /> : 
+        <div>{day.date.date()}</div>
+      }
     </div>
   )
 }
