@@ -16,11 +16,7 @@ const DayView = ({ day, month }) => {
 
   useEffect(() => setActive(false), [month])
 
-  const click = () => {
-    if (classList.includes(styles.disable) || classList.includes(styles.empty))
-      return
-    setActive(!isActive)
-  }
+  const click = () => day.albums.length > 0 && setActive(!isActive)
 
   return (
     <div class={isActive ? `${classList} ${styles.hovered}` : classList} onClick={click}>

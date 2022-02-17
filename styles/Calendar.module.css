@@ -92,12 +92,12 @@
     mask-size: cover;
     background-color: #f9f81a;
     transition: 0.3s opacity;
-    opacity: 0.3;
+    opacity: 0.7;
     cursor: pointer;
     z-index: 3;
 }
 .day .cover.show {
-    opacity: 0.6;
+    opacity: 0.3;
 }
 .day .album {
     position: relative;
@@ -148,7 +148,6 @@
 .albums_container {
     position: absolute;
     inset: 0;
-    cursor: zoom-in;
 }
 .albums_container .count {
     position: absolute;
@@ -210,6 +209,9 @@
     }
     .day.disable, .day.empty {
         display: none;
+    }
+    .day {
+        cursor: default;
     }
     .day.hovered {
         transform: scale(1);
