@@ -163,7 +163,7 @@
     transition: 0.3s ease-in transform;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1200px) {
     .header {
         font-size: 30px;
     }
@@ -171,20 +171,35 @@
         display: none;
     }
     .calendar {
-        grid-template-columns: repeat(2, minmax(30px, 1fr));
+        grid-template-columns: repeat(4, minmax(30px, 1fr));
         direction: ltr;
     }
     .day.disable, .day.empty {
         display: none;
     }
-    .day:nth-child(2n) {
-        transform-origin: left;
+    .day.hovered {
+        transform: scale(1);
     }
-    .day:nth-child(2n-1) {
-        transform-origin: right;
+}
+
+@media only screen and (max-width: 992px) {
+    .calendar {
+        grid-template-columns: repeat(3, minmax(30px, 1fr));
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .calendar {
+        grid-template-columns: repeat(2, minmax(30px, 1fr));
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .calendar {
+        grid-template-columns: 1fr;
     }
 
-    .day .album .description {
+    /* .day .album .description {
         bottom: 8px;
     }
     .day .album h2, .day .date, .albums_container .count {
@@ -196,5 +211,5 @@
     .day .album .genre, .day .album .country {
         margin-bottom: 0;
         font-size: 10px;
-    }
+    } */
 }
