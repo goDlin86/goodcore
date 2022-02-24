@@ -141,6 +141,9 @@
 .day .album .genre.post_hardcore {
     background-color: #ff4c07;
 }
+.day .album .genre.electronic {
+    background-color: #61f595;
+}
 .day .album .country {
     background-color: #07b1ff;
 }
