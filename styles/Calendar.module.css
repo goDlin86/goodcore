@@ -128,7 +128,7 @@
 .day .album h2:hover {
     background-color: rgba(0,0,0,0.9);
 }
-.day .album .genre, .day .album .country {
+.day .album .genre, .day .album .country, .day .album .single {
     display: inline-block;
     padding: 5px;
     padding-bottom: 2px;
@@ -141,11 +141,22 @@
 .day .album .genre.post_hardcore {
     background-color: #ff4c07;
 }
+.day .album .genre.metalcore {
+    background-color: #ff075a;
+}
+.day .album .genre.deathcore {
+    background-color: #441402;
+}
 .day .album .genre.electronic {
     background-color: #61f595;
 }
 .day .album .country {
     background-color: #07b1ff;
+}
+.day .album .single {
+    background-color: rgba(248, 9, 9, 0.527);
+    border-radius: 10px;
+    border: 2px solid rgba(0,0,0,0.6);
 }
 
 .albums_container {

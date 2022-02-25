@@ -1,16 +1,40 @@
 import styles from '../styles/Calendar.module.css'
 
-const AlbumView = ({ album, width, show }) => (
-  <div class={styles.album}>
-    <img src={album.img} style={{maxWidth: width + 'px'}} />
-    <div class={show ? `${styles.description} ${styles.invisible}` : styles.description}>
-      <a href={'https://vk.com/feed?w=wall' + album.groupid + '_' + album.postid} target='_blank' onClick={e => e.stopPropagation()}>
-        <h2>{album.title}</h2>
-      </a>
-      {album.genre.substring(6).split('/').map(genre => <div class={styles.genre + (genre.trim() === 'Post-Hardcore' ? (' ' + styles.post_hardcore) : genre.trim() === 'Electronic' ? (' ' + styles.electronic) : '')}>{genre}</div>)}
-      <div class={styles.country}>{album.country.substring(8)}</div>
+const AlbumView = ({ album, width, show }) => {
+  const genres = album.genre.substring(6).split('/').map(genre => {
+    let classList = styles.genre + ' '
+
+    switch (genre.trim()) {
+      case 'Post-Hardcore':
+        classList += styles.post_hardcore
+        break;
+      case 'Metalcore':
+        classList += styles.metalcore
+        break;
+      case 'Deathcore':
+        classList += styles.deathcore
+        break;
+      case 'Electronic':
+        classList += styles.electronic
+        break;
+    }
+
+    return <div class={classList}>{genre}</div>
+  })
+
+  return (
+    <div class={styles.album}>
+      <img src={album.img} style={{maxWidth: width + 'px'}} />
+      <div class={show ? `${styles.description} ${styles.invisible}` : styles.description}>
+        <a href={'https://vk.com/feed?w=wall' + album.groupid + '_' + album.postid} target='_blank' onClick={e => e.stopPropagation()}>
+          <h2>{album.title.replace('[single]', '')}</h2>
+        </a>
+        {genres}
+        <div class={styles.country}>{album.country.substring(8)}</div>
+        {album.title.includes('[single]') && <div class={styles.single}>Single</div>}
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default AlbumView
