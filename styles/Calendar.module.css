@@ -145,7 +145,7 @@
     background-color: #ff075a;
 }
 .day .album .genre.deathcore {
-    background-color: #441402;
+    background-color: #b13000;
 }
 .day .album .genre.electronic {
     background-color: #61f595;
@@ -154,9 +154,9 @@
     background-color: #07b1ff;
 }
 .day .album .single {
-    background-color: rgba(248, 9, 9, 0.527);
+    background-color: rgba(248, 9, 9, 0.7);
     border-radius: 10px;
-    border: 2px solid rgba(0,0,0,0.6);
+    border: 2px solid rgba(0,0,0,0.7);
 }
 
 .albums_container {
