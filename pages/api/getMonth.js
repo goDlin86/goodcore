@@ -13,7 +13,11 @@ export default async (req, res) => {
         )
     )
 
-    let albums = data['data'].map(a => a['data'])
+    let albums = data['data'].map(a => {
+        const ret = a['data']
+        ret.id = a['ref']['id']
+        return ret
+    })
     albums = albums.map(a => {
         a.date = dayjs(a.date).format('DD MMM YYYY')
         return a
