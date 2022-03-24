@@ -29,7 +29,7 @@ const AlbumsView = ({ albums, day }) => {
     setCur(1)
     setLeft(0)
     setShowCover(false)
-    setLike(albums[cur - 1].like)
+    setLike(albums[0].like)
   }, [albums])
 
   const next = (e) => {
