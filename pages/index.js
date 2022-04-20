@@ -5,9 +5,9 @@ import Head from '../components/head'
 import Album from '../components/album'
 import useOnScreen from '../hooks/useOnScreen'
 
-import ReactGA from 'react-ga'
+import ReactGA from 'react-ga4'
 
-ReactGA.initialize('UA-26528518-2')
+ReactGA.initialize('G-QZS1DJJ7DN')
 
 const fetcher = url => fetch(url).then(res => res.json())
 
@@ -24,13 +24,13 @@ const Home = ({ fallbackData }) => {
   const ref = useRef()
   const isVisible = useOnScreen(ref)
 
-  ReactGA.pageview('/')
+  ReactGA.send('pageview')
 
   const { data, error, size, setSize, isValidating } = useSWRInfinite((pageIndex, previousPageData) => {
       const prevOrInitialData = previousPageData || fallbackData
       console.log(pageIndex)
       if (prevOrInitialData && !prevOrInitialData.after.length) return null
-      if (pageIndex === 0) return `/api/get`
+      if (pageIndex === 0) return '/api/get'
       return `/api/get?cursor=${prevOrInitialData.after}`
     },
     fetcher,
@@ -85,7 +85,7 @@ const Home = ({ fallbackData }) => {
 
 export async function getServerSideProps() {
   const baseUrl = 'https://goodcore.vercel.app'
-  const data = await fetcher(baseUrl + `/api/get`)
+  const data = await fetcher(baseUrl + '/api/get')
   return { props: { fallbackData: data } }
 }
 

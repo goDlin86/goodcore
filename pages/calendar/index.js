@@ -1,12 +1,12 @@
-import ReactGA from 'react-ga'
+import ReactGA from 'react-ga4'
 
 import Head from '../../components/head'
 import Calendar from '../../components/calendar'
 
-ReactGA.initialize('UA-26528518-2')
+ReactGA.initialize('G-QZS1DJJ7DN')
 
 const Home = () => {
-  ReactGA.pageview('calendar')
+  ReactGA.send({ hitType: 'pageview', page: '/calendar' })
 
   return (
     <>
