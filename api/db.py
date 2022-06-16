@@ -35,7 +35,6 @@ class handler(BaseHTTPRequestHandler):
         postid = post['id']
         date = datetime.fromtimestamp(post['date']).isoformat()
         text = [t for t in post['text'].split('\n') if len(t) > 1]
-        print(post['attachments'][0]['photo']['sizes'])
         if len(text) > 2:
           title = text[0]
           country = text[2]
@@ -49,6 +48,9 @@ class handler(BaseHTTPRequestHandler):
               )
             ))
 
+          if ('2022' in title) and (('Metalcore' in genre) or ('Deathcore' in genre) or ('Post-Hardcore' in genre)):
+            print(post['attachments'][0]['photo'])
+            
           if not search['data']:
 
             if ('2022' in title) and (('Metalcore' in genre) or ('Deathcore' in genre) or ('Post-Hardcore' in genre)):
