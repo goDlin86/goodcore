@@ -35,6 +35,7 @@ class handler(BaseHTTPRequestHandler):
         postid = post['id']
         date = datetime.fromtimestamp(post['date']).isoformat()
         text = [t for t in post['text'].split('\n') if len(t) > 1]
+        print(text)
         if len(text) > 4:
           title = text[0]
           country = text[3]
