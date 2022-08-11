@@ -1,20 +1,21 @@
 import styles from '../styles/Calendar.module.css'
 
 const AlbumView = ({ album, width, show }) => {
-  const genres = album.genre.substring(6).split('/').map(genre => {
+  const genres = album.genre.split('/').map(genre => {
     let classList = styles.genre + ' '
+    genre = genre.trim().replace(/^#(\S+)@coreradio$/, '$1')
 
-    switch (genre.trim()) {
-      case 'Post-Hardcore':
+    switch (genre) {
+      case 'POSTHARDCORE':
         classList += styles.post_hardcore
         break;
-      case 'Metalcore':
+      case 'METALCORE':
         classList += styles.metalcore
         break;
-      case 'Deathcore':
+      case 'DEATHCORE':
         classList += styles.deathcore
         break;
-      case 'Electronic':
+      case 'ELECTRONIC':
         classList += styles.electronic
         break;
     }
@@ -32,7 +33,7 @@ const AlbumView = ({ album, width, show }) => {
           </h2>
         </a>
         {genres}
-        <div class={styles.country}>{album.country.substring(8)}</div>
+        <div class={styles.country}>{album.country}</div>
         {album.title.includes('[single]') && <div class={styles.single}>Single</div>}
       </div>
     </div>
