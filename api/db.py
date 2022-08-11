@@ -37,8 +37,8 @@ class handler(BaseHTTPRequestHandler):
         text = [t for t in post['text'].split('\n') if len(t) > 1]
         if len(text) > 2:
           title = text[0]
-          country = text[2]
-          genre = text[1]
+          country = text[3]
+          genre = text[2]
 
           search = client.query(
             q.paginate(
