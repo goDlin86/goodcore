@@ -48,32 +48,24 @@ class handler(BaseHTTPRequestHandler):
               )
             ))
 
-          if ('2022' in title) and (('Metalcore' in genre) or ('Deathcore' in genre) or ('Post-Hardcore' in genre)):
+          if ('2022' in title) and (('METALCORE' in genre) or ('DEATHCORE' in genre) or ('POSTHARDCORE' in genre)):
             print(post['attachments'][0]['photo'])
             
           if not search['data']:
 
-            if ('2022' in title) and (('Metalcore' in genre) or ('Deathcore' in genre) or ('Post-Hardcore' in genre)):
+            if ('2022' in title) and (('METALCORE' in genre) or ('DEATHCORE' in genre) or ('POSTHARDCORE' in genre)):
               img = [img for img in post['attachments'][0]['photo']['sizes'] if img['type'] == 'x'][0]['url']
               links = [link for link in post['attachments'] if link['type'] == 'link']
 
               if len(links) > 0:
                 url = links[0]['link']['url']
               
-                if 'Post-Hardcore' in genre:
-                  style = 'Post-Hardcore'
-                elif 'Deathcore' in genre:
-                  style = 'Deathcore'
-                else:
-                  style = 'Metalcore'
-
                 posts.append({
                   'title': title,
                   'date': date,
                   'img': img,
                   'country': country,
                   'genre': genre,
-                  # 'style': style,
                   'groupid': group,
                   'postid': postid,
                   'url': url
