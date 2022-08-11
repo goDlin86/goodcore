@@ -35,11 +35,10 @@ class handler(BaseHTTPRequestHandler):
         postid = post['id']
         date = datetime.fromtimestamp(post['date']).isoformat()
         text = [t for t in post['text'].split('\n') if len(t) > 1]
-        print(text)
-        if len(text) > 4:
+        if len(text) > 2:
           title = text[0]
-          country = text[3]
-          genre = text[2]
+          country = text[2]
+          genre = text[1]
 
           search = client.query(
             q.paginate(
@@ -48,13 +47,10 @@ class handler(BaseHTTPRequestHandler):
                 title
               )
             ))
-
-          if ('2022' in title) and (('METALCORE' in genre) or ('DEATHCORE' in genre) or ('POSTHARDCORE' in genre)):
-            print(post['attachments'][0]['photo'])
             
           if not search['data']:
 
-            if ('2022' in title) and (('METALCORE' in genre) or ('DEATHCORE' in genre) or ('POSTHARDCORE' in genre)):
+            if ('METALCORE' in genre) or ('DEATHCORE' in genre) or ('POSTHARDCORE' in genre):
               img = [img for img in post['attachments'][0]['photo']['sizes'] if img['type'] == 'x'][0]['url']
               links = [link for link in post['attachments'] if link['type'] == 'link']
 
