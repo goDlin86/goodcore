@@ -1,9 +1,10 @@
+'use client'
+
 import useSWRInfinite from 'swr/infinite'
 import { useRef, useEffect } from 'react'
 
-import Head from '../components/head'
-import Album from '../components/album'
-import useOnScreen from '../hooks/useOnScreen'
+import Album from '../../components/album'
+import useOnScreen from '../../hooks/useOnScreen'
 
 import ReactGA from 'react-ga4'
 
@@ -24,7 +25,7 @@ const Home = ({ fallbackData }) => {
   const ref = useRef()
   const isVisible = useOnScreen(ref)
 
-  ReactGA.send('pageview')
+  ReactGA.send({ hitType: 'pageview', page: '/old' })
 
   const { data, error, size, setSize, isValidating } = useSWRInfinite((pageIndex, previousPageData) => {
       const prevOrInitialData = previousPageData || fallbackData
@@ -55,38 +56,24 @@ const Home = ({ fallbackData }) => {
 
   return (
     <>
-      <Head title='goodcore Releases' description='metalcore, deathcore, post-hardcore releases, link for download' />
-      
-      <header>
-        goo<span className="yellow">d</span>core
-      </header>
-      <section>
-        <h1>Releases</h1>
-        {isEmpty ? <p>Yay, no albums found.</p> : null}
+        {isEmpty ? <p>No albums found.</p> : null}
         {dataByDate.dates.map(date => (
-          <div className='list'>
+        <div className='list'>
             <date><div className='today'>{date.date}</div></date>
             <div className='albumslist'>
-              {date.albums.map((album, index) => (
-                  <Album album={album} key={index} />
+            {date.albums.map((album, index) => (
+                <Album album={album} key={index} />
                 )
-              )}
+            )}
             </div>
-          </div>
-          )
+        </div>
+        )
         )}
         <div ref={ref}>
-          {isLoadingMore ? <p>Loading...</p> : isReachingEnd ? <p>No more albums.</p> : ''}
+        {isLoadingMore ? <p>Loading...</p> : isReachingEnd ? <p>No more albums.</p> : ''}
         </div>
-      </section>  
     </>
   )
-}
-
-export async function getServerSideProps() {
-  const baseUrl = 'https://goodcore.vercel.app'
-  const data = await fetcher(baseUrl + '/api/get')
-  return { props: { fallbackData: data } }
 }
 
 export default Home
