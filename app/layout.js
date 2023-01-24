@@ -1,4 +1,3 @@
-import { DateProvider } from './date-provider'
 import Analytics from '../components/analytics'
 
 import '../styles/main.css'
@@ -18,7 +17,7 @@ export default function Layout({ children }) {
                 <section>
                     <h1>Releases</h1>
                     
-                    <DateProvider>{children}</DateProvider>
+                    {children}
 
                     <Analytics />
                 </section> 
