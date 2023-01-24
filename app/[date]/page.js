@@ -24,7 +24,7 @@ async function getData(date) {
 }
 
 export default async function Page({ params }) {
-  const date = params.date ? dayjs(params.date) : dayjs()
+  const date = dayjs(params.date).isValid() ? dayjs(params.date) : dayjs()
   const data = await getData(date)
 
   const startMonth = date.startOf('month')
@@ -52,7 +52,7 @@ export default async function Page({ params }) {
 
   return (
     <>
-      <MonthHeader date={params.date} />
+      <MonthHeader date={dayjs(params.date).isValid() ? params.date : dayjs().format('MMMMYYYY')} />
       <WeekDays />
       <div class={styles.calendar}>
         {days.map(day => <DayView day={day} curMonth={date.month()} />)}
