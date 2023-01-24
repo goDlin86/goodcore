@@ -21,9 +21,7 @@ const Calendar = () => {
   const [date, setDate] = useState(dayjs())
 
   useEffect(() => {
-    
     getData()
-    
   }, [date])
 
   const getData = async () => {

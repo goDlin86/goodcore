@@ -6,10 +6,6 @@ import { useRef, useEffect } from 'react'
 import Album from '../../components/album'
 import useOnScreen from '../../hooks/useOnScreen'
 
-import ReactGA from 'react-ga4'
-
-ReactGA.initialize('G-QZS1DJJ7DN')
-
 const fetcher = url => fetch(url).then(res => res.json())
 
 function getDataByDate(data) {
@@ -24,8 +20,6 @@ function getDataByDate(data) {
 const Home = ({ fallbackData }) => {
   const ref = useRef()
   const isVisible = useOnScreen(ref)
-
-  ReactGA.send({ hitType: 'pageview', page: '/old' })
 
   const { data, error, size, setSize, isValidating } = useSWRInfinite((pageIndex, previousPageData) => {
       const prevOrInitialData = previousPageData || fallbackData

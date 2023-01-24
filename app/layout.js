@@ -1,3 +1,5 @@
+import Analytics from '../components/analytics'
+
 import '../styles/main.css'
 
 export default function Layout({ children }) {
@@ -17,6 +19,7 @@ export default function Layout({ children }) {
                     
                     {children}
 
+                    <Analytics />
                 </section> 
             </body>
         </html>
