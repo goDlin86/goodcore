@@ -268,6 +268,9 @@
 }
 
 @media only screen and (max-width: 576px) {
+    .header {
+        font-size: 28px;
+    }
     .calendar {
         grid-template-columns: 1fr;
     }
