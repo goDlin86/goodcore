@@ -4,8 +4,6 @@ dayjs.locale({
   ...en,
   weekStart: 1,
 })
-//import 'dayjs/locale/ru'
-//dayjs.locale('ru')
 
 import MonthHeader from '/components/monthheader'
 import WeekDays from '/components/weekdays'
