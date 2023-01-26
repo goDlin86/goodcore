@@ -4,12 +4,22 @@ from faunadb.objects import Ref
 from faunadb.client import FaunaClient
 from datetime import datetime
 import vk_api
-import json
-import os
+from urllib.parse import parse_qs
+import json, os
 
 class handler(BaseHTTPRequestHandler):
 
   def do_GET(self):
+    parsed_path = parse_qs(self.path)
+    print(os.environ.get('SECRET_TOKEN'))
+    print(parsed_path)
+    if os.environ.get('SECRET_TOKEN') != parsed_path[2]:
+      self.send_response(401)
+      self.send_header('Content-type', 'application/json')
+      self.end_headers()
+      self.wfile.write(json.dumps({ 'message': 'Invalid token' }))
+      return
+
     code = os.environ.get('VKTOKEN')
     app = os.environ.get('VKAPPID')
     secret = os.environ.get('VKSECRET')
@@ -46,7 +56,8 @@ class handler(BaseHTTPRequestHandler):
                 q.index("titles"),
                 title
               )
-            ))
+            )
+          )
             
           if not search['data']:
 
@@ -76,7 +87,8 @@ class handler(BaseHTTPRequestHandler):
             {"data": post}
           ),
           posts
-        ))
+        )
+      )
 
     self.send_response(200)
     self.send_header('Content-type', 'application/json')

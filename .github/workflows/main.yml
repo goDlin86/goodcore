@@ -12,4 +12,4 @@ jobs:
     - name: send to db
       uses: wei/curl@v1
       with:
-        args: 'https://goodcore.vercel.app/api/db'
+        args: https://goodcore.vercel.app/api/db?secret=${{ secrets.SECRET_TOKEN }}
