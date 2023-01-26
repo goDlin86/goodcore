@@ -11,12 +11,12 @@ class handler(BaseHTTPRequestHandler):
 
   def do_GET(self):
     parsed_path = parse_qs(self.path)
-    print(parsed_path)
+    print(parsed_path['/api/db?secret'][0])
     if not hasattr(parsed_path, '/api/db?secret') or os.environ.get('SECRET_TOKEN') != parsed_path['/api/db?secret'][0]:
       self.send_response(401)
       self.send_header('Content-type', 'application/json')
       self.end_headers()
-      self.wfile.write(json.dumps({ 'message': 'Invalid token' }))
+      self.wfile.write(json.dumps({ 'message': 'Invalid token' }).encode())
       return
 
     code = os.environ.get('VKTOKEN')
