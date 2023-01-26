@@ -11,9 +11,7 @@ class handler(BaseHTTPRequestHandler):
 
   def do_GET(self):
     parsed_path = parse_qs(self.path)
-    if hasattr(parsed_path, '/api/db?secret'):
-      print('has')
-    if (not hasattr(parsed_path, '/api/db?secret')) or (os.environ.get('SECRET_TOKEN') != parsed_path['/api/db?secret'][0]):
+    if not parsed_path.get('/api/db?secret') or os.environ.get('SECRET_TOKEN') != parsed_path['/api/db?secret'][0]:
       self.send_response(401)
       self.send_header('Content-type', 'application/json')
       self.end_headers()
