@@ -13,3 +13,7 @@ jobs:
       uses: wei/curl@v1
       with:
         args: https://goodcore.vercel.app/api/db?secret=${{ secrets.SECRET_TOKEN }}
+    - name: revalidate
+      uses: wei/curl@v1
+      with:
+        args: https://goodcore.vercel.app/api/revalidate?secret=${{ secrets.SECRET_TOKEN }}
