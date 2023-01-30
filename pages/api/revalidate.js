@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 
 export default async (req, res) => {
-  if (req.query.secret !== process.env.MY_SECRET_TOKEN) {
+  if (req.query.secret !== process.env.SECRET_TOKEN) {
     return res.status(401).json({ message: 'Invalid token' })
   }
 
