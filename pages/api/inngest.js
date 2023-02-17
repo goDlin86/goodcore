@@ -8,11 +8,11 @@ const getAlbums = inngest.createFunction(
   { cron: '0 */12 * * *' }, 
   async ({ event, step }) => {
     await step.run('db', async () => { 
-      const res = await fetch('https://goodcore.vercel.app/api/db?secret=' + process.env.GOODCORE_TOKEN)
+      const res = await fetch('https://goodcore.vercel.app/api/db?secret=' + process.env.SECRET_TOKEN)
       return await res.json()
     })
     await step.run('revalidate', async () => { 
-      const res = await fetch('https://goodcore.vercel.app/api/revalidate?secret=' + process.env.GOODCORE_TOKEN)
+      const res = await fetch('https://goodcore.vercel.app/api/revalidate?secret=' + process.env.SECRET_TOKEN)
       return await res.json()
     })
   }
