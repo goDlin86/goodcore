@@ -1,2 +1,2 @@
 vk-api==11.9.9
-faunadb==4.3.1
+faunadb==4.5.1
