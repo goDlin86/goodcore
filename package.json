@@ -9,8 +9,8 @@
   "dependencies": {
     "dayjs": "^1.10.4",
     "faunadb": "^4.1.1",
-    "inngest": "^1.1.0",
-    "next": "^13.0.0",
+    "inngest": "^3",
+    "next": "^14",
     "nextjs-google-analytics": "^2.3.0",
     "prop-types": "^15.8.1",
     "react": "^18.0.0",

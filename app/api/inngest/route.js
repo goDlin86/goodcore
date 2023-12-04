@@ -1,12 +1,12 @@
 import { Inngest } from 'inngest'
 import { serve } from 'inngest/next'
 
-export const inngest = new Inngest({ name: 'goodcore' })
+const inngest = new Inngest({ name: 'goodcore' })
 
 const getAlbums = inngest.createFunction(
   { name: 'Get albums' }, 
   { cron: '0 */12 * * *' }, 
-  async ({ event, step }) => {
+  async ({ step }) => {
     await step.run('db', async () => { 
       const res = await fetch('https://goodcore.vercel.app/api/db?secret=' + process.env.SECRET_TOKEN)
       return await res.json()
@@ -18,4 +18,9 @@ const getAlbums = inngest.createFunction(
   }
 )
 
-export default serve(inngest, [ getAlbums ])
+export const { GET, POST, PUT } = serve({
+  client: inngest,
+  functions: [
+    getAlbums
+  ],
+})
