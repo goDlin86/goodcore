@@ -1,7 +1,7 @@
 import { Inngest } from 'inngest'
 import { serve } from 'inngest/next'
 
-const inngest = new Inngest({ name: 'goodcore' })
+const inngest = new Inngest({ id: 'goodcore' })
 
 const getAlbums = inngest.createFunction(
   { name: 'Get albums' }, 
