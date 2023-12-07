@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
  
 [packages]
-vk-api = "*"
+vk_api = "*"
 faunadb = "*"
  
 [requires]
