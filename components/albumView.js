@@ -33,7 +33,7 @@ const AlbumView = ({ album, width, show }) => {
           </h2>
         </a>
         {genres}
-        <div class={styles.country}>{album.country}</div>
+        {album.country && <div class={styles.country}>{album.country}</div>}
         {album.title.includes('[single]') && <div class={styles.single}>Single</div>}
       </div>
     </div>
