@@ -1,8 +1,0 @@
-{
-    "env": {
-        "VKAPPID": "@vkappid",
-        "VKTOKEN": "@vktoken",
-        "VKSECRET": "@vksecret",
-        "DBSECRET": "@faunadbsecret"
-    }
-}
