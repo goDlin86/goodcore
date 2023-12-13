@@ -6,7 +6,7 @@ export default function Layout({ children }) {
     return (
         <html lang="en">
             <head>
-                <title>goodcore Releases</title>
+                <title>goodcore New Releases</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
 
@@ -14,11 +14,8 @@ export default function Layout({ children }) {
                 <header>
                     goo<span className="yellow">d</span>core
                 </header>
-                <section>
-                    <h1>Releases</h1>
-                    
+                <section>                  
                     {children}
-
                     <Analytics />
                 </section> 
             </body>
