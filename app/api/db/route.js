@@ -23,35 +23,37 @@ export async function GET(request) {
     const date = dayjs.unix(post.date).toISOString()
     const text = post.text.split('\n').filter(t => t.length > 0)
 
-    const title = text[0]
-    const country = text[2]
-    const genre = text[1]
+    if (text.length > 2) {
+      const title = text[0]
+      const country = text[2]
+      const genre = text[1]
 
-    const exists = await client.query(
-      q.Exists(
-        q.Match(
-          q.Index('titles'), 
-          title
+      const exists = await client.query(
+        q.Exists(
+          q.Match(
+            q.Index('titles'), 
+            title
+          )
         )
       )
-    )
 
-    if (!exists) {
-      if (genre.includes('POSTHARDCORE') || genre.includes('METALCORE') || genre.includes('DEATHCORE')) {
-        const img = post.attachments[0].photo.sizes.filter(i => i.type === 'x')[0].url
-        const links = post.attachments.filter(a => a.type === 'link')
-        if (links.length > 0) {
-          const url = links[0].link.url
+      if (!exists) {
+        if (genre.includes('POSTHARDCORE') || genre.includes('METALCORE') || genre.includes('DEATHCORE')) {
+          const img = post.attachments[0].photo.sizes.filter(i => i.type === 'x')[0].url
+          const links = post.attachments.filter(a => a.type === 'link')
+          if (links.length > 0) {
+            const url = links[0].link.url
 
-          return {
-            postid,
-            groupid,
-            date,
-            title,
-            country,
-            genre,
-            img,
-            url
+            return {
+              postid,
+              groupid,
+              date,
+              title,
+              country,
+              genre,
+              img,
+              url
+            }
           }
         }
       }
