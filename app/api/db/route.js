@@ -23,10 +23,10 @@ export async function GET(request) {
     const date = dayjs.unix(post.date).toISOString()
     const text = post.text.split('\n').filter(t => t.length > 0)
 
-    if (text.length > 2) {
+    if (text.length > 1) {
       const title = text[0]
-      const country = text[2]
       const genre = text[1]
+      const country = text[2] || ''
 
       const exists = await client.query(
         q.Exists(
@@ -72,7 +72,4 @@ export async function GET(request) {
   }
   
   return NextResponse.json(posts)
-
-
-
 }
