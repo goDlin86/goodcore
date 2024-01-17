@@ -21,7 +21,7 @@ export async function GET(request) {
   const data = await Promise.all(wall.items.map(async post => {
     const postid = post.id
     const date = dayjs.unix(post.date).toISOString()
-    const text = post.text.split('\n').filter(t => t.length > 0)
+    const text = post.text.split('\n').filter(t => t.trim().length > 0)
 
     if (text.length > 1) {
       const title = text[0]
