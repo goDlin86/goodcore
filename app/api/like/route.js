@@ -8,7 +8,7 @@ export async function GET(request) {
 
   const client = new faunadb.Client({ secret: process.env.DBSECRET })
   
-  client.query(
+  const ret = await client.query(
     q.Update(
       q.Ref(q.Collection('AlbumEntry'), id),
       {
@@ -18,11 +18,15 @@ export async function GET(request) {
       }
     )
   )
-  .then((ret) => console.log(ret))
-  .catch((err) => console.error(
-    'Error: [%s] %s: %s',
-    err.name,
-    err.message,
-    err.errors()[0].description,
-  ))
+  
+  console.log(ret)
+
+  // .catch((err) => console.error(
+  //   'Error: [%s] %s: %s',
+  //   err.name,
+  //   err.message,
+  //   err.errors()[0].description,
+  // ))
+
+  return NextResponse.json(ret)
 }
