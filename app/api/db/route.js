@@ -38,7 +38,7 @@ export async function GET(request) {
       )
 
       if (!exists) {
-        if (genre.includes('POSTHARDCORE') || genre.includes('METALCORE') || genre.includes('DEATHCORE')) {
+        if (genre.includes('POSTHARDCORE') || genre.includes('METALCORE') || genre.includes('DEATHCORE') || genre.includes('SCACORE')) {
           const img = post.attachments[0].photo.sizes.filter(i => i.type === 'x')[0].url
           const links = post.attachments.filter(a => a.type === 'link')
           if (links.length > 0) {
