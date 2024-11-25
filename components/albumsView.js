@@ -34,14 +34,14 @@ const AlbumsView = ({ albums, day }) => {
 
   const next = (e) => {
     setLeft(left - width)
-    setCur(cur+1)
-    setLike(albums[cur - 1].like)
+    setLike(albums[cur].like)
+    setCur(c => c + 1)
     e.stopPropagation()
   }
   const prev = (e) => {
     setLeft(left + width)
-    setCur(cur-1)
-    setLike(albums[cur - 1].like)
+    setLike(albums[cur - 2].like)
+    setCur(c => c - 1)
     e.stopPropagation()
   }
 

@@ -7,15 +7,15 @@
     "start": "next start"
   },
   "dependencies": {
-    "dayjs": "^1.10.4",
-    "faunadb": "^4.1.1",
+    "dayjs": "^1",
+    "faunadb": "^4",
     "inngest": "^3",
-    "next": "^14",
-    "nextjs-google-analytics": "^2.3.0",
-    "prop-types": "^15.8.1",
+    "next": "^15",
+    "nextjs-google-analytics": "^2",
+    "prop-types": "^15",
     "react": "^18",
     "react-dom": "^18",
-    "swr": "^2.0.0",
-    "vk-io": "^4.8.3"
+    "swr": "^2",
+    "vk-io": "^4"
   }
 }
