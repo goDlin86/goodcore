@@ -29,11 +29,11 @@ const AlbumView = ({ album, width, show }) => {
       <div class={show ? `${styles.description} ${styles.invisible}` : styles.description}>
         <a href={'https://vk.com/feed?w=wall' + album.groupid + '_' + album.postid} target='_blank' onClick={e => e.stopPropagation()}>
           <h2 class={album.like && styles.like}>
-            {album.title.replace('[single]', '').replace('(2022)', '').replace(/\[club\d+\|(.*)\]/, '$1').replace(/\[https:\/\/vk.com\/.+\|(.*)\]/, '$1')}
+            {album.title.replace('[single]', '').replace(/\[club\d+\|(.*)\]/, '$1').replace(/\[https:\/\/vk.com\/.+\|(.*)\]/, '$1')}
           </h2>
         </a>
         {genres}
-        {album.country && <div class={styles.country}>{album.country}</div>}
+        {album.country && album.country.includes('Country') && <div class={styles.country}>{album.country}</div>}
         {album.title.includes('[single]') && <div class={styles.single}>Single</div>}
       </div>
     </div>

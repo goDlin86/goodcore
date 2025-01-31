@@ -13,8 +13,8 @@
     "next": "^15",
     "nextjs-google-analytics": "^2",
     "prop-types": "^15",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^19",
+    "react-dom": "^19",
     "swr": "^2",
     "vk-io": "^4"
   }
