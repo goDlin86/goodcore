@@ -66,7 +66,7 @@ const AlbumsView = ({ albums, day }) => {
       <div class={cur === 1 || showCover ? `${styles.button} ${styles.invisible}` : styles.button} onClick={prev}>&#60;</div>
       <div class={cur === albums.length || showCover ? `${styles.button} ${styles.right} ${styles.invisible}` : `${styles.button} ${styles.right}`} onClick={next}>&#62;</div>
       <div class={styles.albums} style={{transform: 'translate(' + left + 'px)'}}>
-        {albums.map((album, i) => <AlbumView album={album} width={width} show={showCover} />)}
+        {albums.map((album, i) => <AlbumView key={i} album={album} width={width} show={showCover} />)}
       </div>
     </div>
   )
