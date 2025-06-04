@@ -1,3 +1,4 @@
+import { sql } from '@vercel/postgres'
 import dayjs from 'dayjs'
 import en from 'dayjs/locale/en'
 dayjs.locale({
@@ -15,14 +16,20 @@ async function getData(date) {
   const dateStart = date.endOf('month').toISOString().slice(0, -5)
   const dateEnd = date.startOf('month').toISOString().slice(0, -5)
 
-  const res = await fetch(`https://goodcore.vercel.app/api/getMonth?dateStart=${dateStart}&dateEnd=${dateEnd}`)
-  const data = await res.json()
+  let data
+
+  try {
+    data = await sql`SELECT * FROM albums` //WHERE date >= ${dateStart} AND date <= ${dateEnd} ORDER BY date DESC`
+  } catch (e) {
+    console.log(e)
+  }
 
   return data
 }
 
 export default async function Page({ params }) {
-  const date = dayjs(params.date).isValid() ? dayjs(params.date) : dayjs()
+  const d = await params
+  const date = dayjs(d.date).isValid() ? dayjs(d.date) : dayjs()
   const data = await getData(date)
 
   const startMonth = date.startOf('month')
@@ -35,7 +42,7 @@ export default async function Page({ params }) {
     const item = {
       date: curDate.date(),
       month: curDate.month(), 
-      albums: data.albums.filter(a => curDate.format('DD MMM YYYY') === a.date).sort(() => 0.5 - Math.random())
+      albums: data.rows.filter(a => curDate.date() === dayjs(a.date).date()).sort(() => 0.5 - Math.random())
     }
     array.push(item)
 

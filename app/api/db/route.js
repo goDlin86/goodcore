@@ -1,5 +1,4 @@
-import { NextResponse } from 'next/server'
-import faunadb, { query as q } from 'faunadb'
+import { sql } from '@vercel/postgres'
 import { VK } from 'vk-io'
 import dayjs from 'dayjs'
 
@@ -7,11 +6,7 @@ export async function GET(request) {
   const { searchParams } = request.nextUrl
   const secret = searchParams.get('secret')
 
-  if (secret !== process.env.SECRET_TOKEN) {
-    return NextResponse.json({ error: 'Invalid token' }, { status: 401 })
-  }
-
-  const client = new faunadb.Client({ secret: process.env.DBSECRET })
+  if (secret !== process.env.SECRET_TOKEN) return Response.json({ error: 'Invalid token' }, { status: 401 })
 
   const vk = new VK({ token: process.env.VKSECRET })
 
@@ -28,14 +23,7 @@ export async function GET(request) {
       const genre = text[1]
       const country = text[2] || ''
 
-      const exists = await client.query(
-        q.Exists(
-          q.Match(
-            q.Index('titles'), 
-            title
-          )
-        )
-      )
+      const exists = false // sql exists check index
 
       if (!exists) {
         if (genre.includes('POSTHARDCORE') || genre.includes('METALCORE') || genre.includes('DEATHCORE') || genre.includes('SCACORE')) {
@@ -62,14 +50,17 @@ export async function GET(request) {
   
   const posts = data.filter(d => d !== undefined)
 
-  if (posts.length > 0) {
-    await client.query(
-      q.Map(
-        posts,
-        q.Lambda('post', q.Create(q.Collection('AlbumEntry'), { data: q.Var('post') }))
-      )
-    )
+  try {
+    posts.map(async p => await sql`
+      INSERT INTO albums (postid, groupid, date, title, country, genre, img, url)
+      VALUES (${p.postid}, ${p.groupid}, ${p.date}, ${p.title}, ${p.country}, ${p.genre}, ${p.img}, ${p.url})
+      ON CONFLICT (title) DO NOTHING
+    `)
+  }
+  catch (e) {
+    console.log(e)
+    return Response.json({ message: e.message }, { status: 500 })
   }
   
-  return NextResponse.json(posts)
+  return Response.json(posts)
 }
