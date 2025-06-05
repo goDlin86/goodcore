@@ -13,13 +13,13 @@ import DayView from '/components/dayView'
 import styles from '/styles/Calendar.module.css'
 
 async function getData(date) {
-  const dateStart = date.endOf('month').toISOString().slice(0, -5)
-  const dateEnd = date.startOf('month').toISOString().slice(0, -5)
+  const dateStart = date.startOf('month').format('YYYY-MM-DD HH:mm:ss')
+  const dateEnd = date.endOf('month').format('YYYY-MM-DD HH:mm:ss')
 
   let data
 
   try {
-    data = await sql`SELECT * FROM albums` //WHERE date >= ${dateStart} AND date <= ${dateEnd} ORDER BY date DESC`
+    data = await sql`SELECT * FROM albums WHERE date BETWEEN ${dateStart} AND ${dateEnd}`
   } catch (e) {
     console.log(e)
   }
@@ -57,10 +57,10 @@ export default async function Page({ params }) {
 
   return (
     <>
-      <MonthHeader date={dayjs(params.date).isValid() ? params.date : dayjs().format('MMMMYYYY')} />
+      <MonthHeader date={dayjs(d.date).isValid() ? d.date : dayjs().format('MMMMYYYY')} />
       <WeekDays />
-      <div class={styles.calendar}>
-        {days.map(day => <DayView day={day} curMonth={date.month()} />)}
+      <div className={styles.calendar}>
+        {days.map((day, i) => <DayView key={i} day={day} curMonth={date.month()} />)}
       </div>
     </>
   )

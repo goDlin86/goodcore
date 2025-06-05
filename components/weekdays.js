@@ -4,9 +4,9 @@ import styles from '../styles/Calendar.module.css'
 
 const WeekDays = () => {
     return (
-        <div class={styles.weekdays}>
+        <div className={styles.weekdays}>
             {[...Array(7).keys()].map((i) => (
-                <div class={styles.weekday}>
+                <div className={styles.weekday} key={i}>
                     {dayjs().startOf('week').add(i, 'day').format('dddd')}
                 </div>
             ))}

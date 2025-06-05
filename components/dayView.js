@@ -21,7 +21,7 @@ const DayView = ({ day, curMonth }) => {
   const click = () => day.albums.length > 0 && setActive(!isActive)
 
   return (
-    <div class={isActive ? `${classList} ${styles.hovered}` : classList} onClick={click}>
+    <div className={isActive ? `${classList} ${styles.hovered}` : classList} onClick={click}>
       {day.albums.length > 0 ? 
         <AlbumsView albums={day.albums} day={day.date} /> : 
         <div>{day.date}</div>
