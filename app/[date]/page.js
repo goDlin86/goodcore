@@ -42,7 +42,7 @@ export default async function Page({ params }) {
     const item = {
       date: curDate.date(),
       month: curDate.month(), 
-      albums: data.rows.filter(a => curDate.date() === dayjs(a.date).date()).sort(() => 0.5 - Math.random())
+      albums: []
     }
     array.push(item)
 
@@ -52,6 +52,8 @@ export default async function Page({ params }) {
     if (curWeek && curDate.day() === 0)
       break
   }
+
+  data.rows.map(a => array.find(i => i.date === dayjs(a.date).date()).albums.push(a))
 
   const days = array.reverse()
 

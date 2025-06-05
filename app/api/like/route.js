@@ -1,20 +1,16 @@
-
+import { sql } from '@vercel/postgres'
 
 export async function GET(request) {
   const { searchParams } = request.nextUrl
   const id = searchParams.get('id')
-  const value = searchParams.get('value')
   
-
-  
-  //console.log(ret)
-
-  // .catch((err) => console.error(
-  //   'Error: [%s] %s: %s',
-  //   err.name,
-  //   err.message,
-  //   err.errors()[0].description,
-  // ))
+  try {
+    await sql`UPDATE albums SET "like" = NOT "like" WHERE id = ${id}`
+  }
+  catch (e) {
+    console.log(e)
+    return Response.json({ message: e.message }, { status: 500 })
+  }
 
   return Response.json({ message: 'Like updated successfully' })
 }

@@ -20,21 +20,21 @@ const AlbumView = ({ album, width, show }) => {
         break;
     }
 
-    return <div class={classList}>{genre}</div>
+    return <div className={classList}>{genre}</div>
   })
 
   return (
-    <div class={styles.album}>
+    <div className={styles.album}>
       <img src={album.img} style={{maxWidth: width + 'px'}} />
-      <div class={show ? `${styles.description} ${styles.invisible}` : styles.description}>
+      <div className={show ? `${styles.description} ${styles.invisible}` : styles.description}>
         <a href={'https://vk.com/feed?w=wall' + album.groupid + '_' + album.postid} target='_blank' onClick={e => e.stopPropagation()}>
-          <h2 class={album.like && styles.like}>
+          <h2 className={album.like ? styles.like : ''}>
             {album.title.replace('[single]', '').replace(/\[club\d+\|(.*)\]/, '$1').replace(/\[https:\/\/vk.com\/.+\|(.*)\]/, '$1')}
           </h2>
         </a>
         {genres}
-        {album.country && album.country.includes('Country') && <div class={styles.country}>{album.country}</div>}
-        {album.title.includes('[single]') && <div class={styles.single}>Single</div>}
+        {album.country && album.country.includes('Country') && <div className={styles.country}>{album.country}</div>}
+        {album.title.includes('[single]') && <div className={styles.single}>Single</div>}
       </div>
     </div>
   )
