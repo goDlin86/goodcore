@@ -12,7 +12,6 @@
     "dayjs": "^1",
     "inngest": "^3",
     "next": "^15",
-    "nextjs-google-analytics": "^2",
     "prop-types": "^15",
     "react": "^19",
     "react-dom": "^19",

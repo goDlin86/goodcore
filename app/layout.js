@@ -1,4 +1,4 @@
-import Analytics from '../components/analytics'
+import { Analytics } from '@vercel/analytics/react'
 
 import '../styles/main.css'
 
