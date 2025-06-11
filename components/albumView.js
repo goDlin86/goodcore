@@ -1,7 +1,7 @@
 import styles from '../styles/Calendar.module.css'
 
 const AlbumView = ({ album, width, show }) => {
-  const genres = album.genre.split('/').map(genre => {
+  const genres = album.genre.split('/').map((genre, i) => {
     let classList = styles.genre + ' '
     genre = genre.trim().replace(/^#(\S+)@coreradio$/, '$1')
 
@@ -20,7 +20,7 @@ const AlbumView = ({ album, width, show }) => {
         break;
     }
 
-    return <div className={classList}>{genre}</div>
+    return <div className={classList} key={i}>{genre}</div>
   })
 
   return (

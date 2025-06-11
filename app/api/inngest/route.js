@@ -11,10 +11,10 @@ const getAlbums = inngest.createFunction(
       const res = await fetch('https://goodcore.vercel.app/api/db?secret=' + process.env.SECRET_TOKEN)
       return await res.json()
     })
-    await step.run('revalidate', async () => { 
-      const res = await fetch('https://goodcore.vercel.app/api/revalidate?secret=' + process.env.SECRET_TOKEN)
-      return await res.json()
-    })
+    // await step.run('revalidate', async () => { 
+    //   const res = await fetch('https://goodcore.vercel.app/api/revalidate?secret=' + process.env.SECRET_TOKEN)
+    //   return await res.json()
+    // })
   }
 )
 
