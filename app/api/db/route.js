@@ -54,7 +54,6 @@ export async function GET(request) {
     posts.map(async p => await sql`
       INSERT INTO albums (postid, groupid, date, title, country, genre, img, url)
       VALUES (${p.postid}, ${p.groupid}, ${p.date}, ${p.title}, ${p.country}, ${p.genre}, ${p.img}, ${p.url})
-      ON CONFLICT (postid) DO NOTHING
     `)
   }
   catch (e) {
