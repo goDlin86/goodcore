@@ -23,25 +23,21 @@ export async function GET(request) {
       const genre = text[1]
       const country = text[2] || ''
 
-      const exists = false // sql exists check index
+      if (genre.includes('POSTHARDCORE') || genre.includes('METALCORE') || genre.includes('DEATHCORE') || genre.includes('SCACORE')) {
+        const img = post.attachments[0].photo.sizes.filter(i => i.type === 'x')[0].url
+        const links = post.attachments.filter(a => a.type === 'link')
+        if (links.length > 0) {
+          const url = links[0].link.url
 
-      if (!exists) {
-        if (genre.includes('POSTHARDCORE') || genre.includes('METALCORE') || genre.includes('DEATHCORE') || genre.includes('SCACORE')) {
-          const img = post.attachments[0].photo.sizes.filter(i => i.type === 'x')[0].url
-          const links = post.attachments.filter(a => a.type === 'link')
-          if (links.length > 0) {
-            const url = links[0].link.url
-
-            return {
-              postid,
-              groupid,
-              date,
-              title,
-              country,
-              genre,
-              img,
-              url
-            }
+          return {
+            postid,
+            groupid,
+            date,
+            title,
+            country,
+            genre,
+            img,
+            url
           }
         }
       }
@@ -53,13 +49,14 @@ export async function GET(request) {
   try {
     posts.map(async p => await sql`
       INSERT INTO albums (postid, groupid, date, title, country, genre, img, url)
-      VALUES (${p.postid}, ${p.groupid}, ${p.date}, ${p.title}, ${p.country}, ${p.genre}, ${p.img}, ${p.url})
+      VALUES (${p.postid}, ${p.groupid}, ${p.date}, ${p.title}, ${p.country}, ${p.genre}, ${p.img}, ${p.url}) 
+      ON CONFLICT (postid) DO NOTHING
     `)
+
+    return Response.json(posts)
   }
   catch (e) {
     console.log(e)
     return Response.json({ message: e.message }, { status: 500 })
   }
-  
-  return Response.json(posts)
 }
