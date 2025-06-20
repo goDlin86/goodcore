@@ -47,16 +47,16 @@ export async function GET(request) {
   const posts = data.filter(d => d !== undefined)
 
   try {
-    await posts.map(async p => {
+    const res = await Promise.all(posts.map(async p => {
       const q = await sql`
         INSERT INTO albums (postid, groupid, date, title, country, genre, img, url)
         VALUES (${p.postid}, ${p.groupid}, ${p.date}, ${p.title}, ${p.country}, ${p.genre}, ${p.img}, ${p.url}) 
         ON CONFLICT (postid) DO NOTHING
       `
-      console.log(q)
-    })
+      return { count: q.rowCount }
+    }))
 
-    return Response.json(posts)
+    return Response.json(res)
   }
   catch (e) {
     console.log(e)
