@@ -47,7 +47,7 @@ export async function GET(request) {
   const posts = data.filter(d => d !== undefined)
 
   try {
-    posts.map(async p => {
+    await posts.map(async p => {
       const q = await sql`
         INSERT INTO albums (postid, groupid, date, title, country, genre, img, url)
         VALUES (${p.postid}, ${p.groupid}, ${p.date}, ${p.title}, ${p.country}, ${p.genre}, ${p.img}, ${p.url}) 
