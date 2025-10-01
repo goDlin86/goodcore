@@ -9,6 +9,7 @@
   "dependencies": {
     "@vercel/analytics": "^1.5.0",
     "@vercel/postgres": "^0.10.0",
+    "cheerio": "^1",
     "dayjs": "^1",
     "inngest": "^3",
     "next": "^15",

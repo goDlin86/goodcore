@@ -4,9 +4,10 @@ const AlbumView = ({ album, width, show }) => {
   const genres = album.genre.split('/').map((genre, i) => {
     let classList = styles.genre + ' '
     genre = genre.trim().replace(/^#(\S+)@coreradio$/, '$1')
+    genre = genre.replace(/^Genre: (\S+)/, '$1')
 
-    switch (genre) {
-      case 'POSTHARDCORE':
+    switch (genre.toUpperCase()) {
+      case 'POST-HARDCORE':
         classList += styles.post_hardcore
         break;
       case 'METALCORE':
@@ -27,7 +28,7 @@ const AlbumView = ({ album, width, show }) => {
     <div className={styles.album}>
       <img src={album.img} style={{maxWidth: width + 'px'}} />
       <div className={show ? `${styles.description} ${styles.invisible}` : styles.description}>
-        <a href={'https://vk.com/feed?w=wall' + album.groupid + '_' + album.postid} target='_blank' onClick={e => e.stopPropagation()}>
+        <a href={album.groupid.length > 0 ? 'https://vk.com/feed?w=wall' + album.groupid + '_' + album.postid : album.url} target='_blank' onClick={e => e.stopPropagation()}>
           <h2 className={album.like ? styles.like : ''}>
             {album.title.replace('[single]', '').replace(/\[club\d+\|(.*)\]/, '$1').replace(/\[https:\/\/vk.com\/.+\|(.*)\]/, '$1')}
           </h2>
