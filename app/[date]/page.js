@@ -54,6 +54,7 @@ export default async function Page({ params }) {
   }
 
   data.rows.map(a => array.find(i => i.date === dayjs(a.date).date()).albums.push(a))
+  array.map(a => a.albums.sort((a, b) => b.like - a.like))
 
   const days = array.reverse()
 
