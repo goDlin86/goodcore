@@ -21,7 +21,7 @@ export async function GET(request) {
         VALUES ('', '', NOW(), ${p.title}, ${p.country}, ${p.genre}, ${p.img}, ${p.url}) 
         ON CONFLICT (title) DO NOTHING
       `
-      return { count: q.rowCount }
+      return q.rowCount > 0 && { title: p.title }
     }))
 
     return Response.json(res)

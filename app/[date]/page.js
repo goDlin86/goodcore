@@ -6,18 +6,17 @@ dayjs.locale({
   weekStart: 1,
 })
 
-import MonthHeader from '/components/monthheader'
-import WeekDays from '/components/weekdays'
-import DayView from '/components/dayView'
+import MonthHeader from '../../components/monthheader'
+import WeekDays from '../../components/weekdays'
+import DayView from '../../components/dayView'
 
-import styles from '/styles/Calendar.module.css'
+import styles from '../../styles/Calendar.module.css'
 
 async function getData(date) {
   const dateStart = date.startOf('month').format('YYYY-MM-DD HH:mm:ss')
   const dateEnd = date.endOf('month').format('YYYY-MM-DD HH:mm:ss')
 
   let data
-
   try {
     data = await sql`SELECT * FROM albums WHERE date BETWEEN ${dateStart} AND ${dateEnd}`
   } catch (e) {
@@ -53,7 +52,7 @@ export default async function Page({ params }) {
       break
   }
 
-  data.rows.map(a => array.find(i => i.date === dayjs(a.date).date()).albums.push(a))
+  data.rows.map(a => array.find(i => i.date === dayjs(a.date).date() && i.month === dayjs(a.date).month()).albums.push(a))
   array.map(a => a.albums.sort((a, b) => b.like - a.like))
 
   const days = array.reverse()
