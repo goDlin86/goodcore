@@ -4,11 +4,8 @@ import * as cheerio from 'cheerio'
 export const maxDuration = 20
 
 export async function GET(request) {
-  const { searchParams } = request.nextUrl
-  const secret = searchParams.get('secret')
-
-  if (secret !== process.env.SECRET_TOKEN) 
-    return Response.json({ error: 'Invalid token' }, { status: 401 })
+  if (request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`)
+    return Response.json({ error: 'Unauthorized' }, { status: 401 })    
 
   const albums = await getPosts('https://coreradio.online/albums')
   const singles = await getPosts('https://coreradio.online/singles')
