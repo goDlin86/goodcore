@@ -5,7 +5,7 @@ export const maxDuration = 20
 
 export async function GET(request) {
   if (request.headers.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`)
-    return Response.json({ error: 'Unauthorized' }, { status: 401 })    
+    return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   const albums = await getPosts('https://coreradio.online/albums')
   const singles = await getPosts('https://coreradio.online/singles')
