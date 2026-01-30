@@ -8,9 +8,7 @@ const getAlbums = inngest.createFunction(
   { cron: '0 */12 * * *' }, 
   async ({ step }) => {
     await step.run('db', async () => { 
-      const res = await fetch('https://goodcore.vercel.app/api/db', {
-        headers: { 'Authorization': `Bearer ${process.env.CRON_SECRET}`
-      }})
+      const res = await fetch(`https://goodcore.vercel.app/api/db?secret=${process.env.CRON_SECRET}`)
       return await res.json()
     })
   }
