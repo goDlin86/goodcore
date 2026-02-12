@@ -14,17 +14,12 @@ export async function GET(request) {
   const singles = await getPosts('https://coreradio.online/singles')
   const posts = [...albums, ...singles]
 
-  try {
-    const res = await Promise.all(posts.map(async p => {
-      const q = await sql`
-        INSERT INTO albums (postid, groupid, date, title, country, genre, img, url)
-        VALUES ('', '', NOW(), ${p.title}, ${p.country}, ${p.genre}, ${p.img}, ${p.url}) 
-        ON CONFLICT (title) DO NOTHING
-      `
-      return q.rowCount > 0 && { title: p.title }
-    }))
+  const columns = ['title', 'country', 'genre', 'img', 'url']
+  const { query, values } = bulkInsertQuery(columns, posts)
 
-    return Response.json(res)
+  try {
+    const q = await sql.query(query, values)
+    return Response.json({ message: q.rowCount })
   }
   catch (e) {
     console.log(e)
@@ -45,4 +40,20 @@ async function getPosts(url) {
     genre: $(item).find('.tcarusel-item-descr2').text().split(/\n/)[1].trim(),
     country: $(item).find('.tcarusel-item-descr2').text().split(/\n/)[2].trim(),
   }))
+}
+
+function bulkInsertQuery(columns, rows) {
+  let query = `INSERT INTO albums (${columns.join(', ')}) VALUES `
+  let values = []
+  let placeholders = []
+  let paramIndex = 1
+
+  rows.forEach((row, rowIndex) => {
+    const rowPlaceholders = columns.map(col => `$${paramIndex++}`).join(', ')
+    placeholders.push(`(${rowPlaceholders})`)
+    columns.forEach(col => values.push(row[col]))
+  })
+
+  query += placeholders.join(', ') + ' ON CONFLICT (title) DO NOTHING;'
+  return { query, values }
 }
