@@ -16,10 +16,11 @@ export async function GET(request) {
 
   const columns = ['title', 'country', 'genre', 'img', 'url']
   const { query, values } = bulkInsertQuery(columns, posts)
+  console.log(values)
 
   try {
     const q = await sql.query(query, values)
-    return Response.json({ message: q.rowCount })
+    return Response.json({ rows: q.rowCount })
   }
   catch (e) {
     console.log(e)
