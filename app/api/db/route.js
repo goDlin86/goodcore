@@ -16,7 +16,6 @@ export async function GET(request) {
 
   const columns = ['title', 'country', 'genre', 'img', 'url']
   const { query, values } = bulkInsertQuery(columns, posts)
-  console.log(values)
 
   try {
     const q = await sql.query(query, values)
