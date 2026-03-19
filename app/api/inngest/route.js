@@ -3,9 +3,12 @@ import { serve } from 'inngest/next'
 
 const inngest = new Inngest({ id: 'goodcore' })
 
-const getAlbums = inngest.createFunction(
-  { name: 'Get albums' }, 
-  { cron: '0 */12 * * *' }, 
+const getAlbums = inngest.createFunction({ 
+    id: 'Get albums',
+    triggers: {
+      cron: '0 */12 * * *'
+    }
+  },
   async ({ step }) => {
     await step.run('db', async () => { 
       const res = await fetch(`https://goodcore.vercel.app/api/db?secret=${process.env.CRON_SECRET}`)
