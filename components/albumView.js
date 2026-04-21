@@ -25,7 +25,7 @@ const AlbumView = ({ album, width, show }) => {
   })
 
   return (
-    <div className={styles.album}>
+    <div className={styles.album} style={{width: width + 'px'}}>
       <img src={album.img} style={{maxWidth: width + 'px'}} />
       <div className={show ? `${styles.description} ${styles.invisible}` : styles.description}>
         <a href={album.groupid && album.groupid.length > 0 ? 'https://vk.com/feed?w=wall' + album.groupid + '_' + album.postid : album.url} target='_blank' onClick={e => e.stopPropagation()}>
